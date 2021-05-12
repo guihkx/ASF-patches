@@ -1,0 +1,55 @@
+From 466fbe1d657568718735f95ab5878fa342f0118d Mon Sep 17 00:00:00 2001
+From: guihkx <guihkx@users.noreply.github.com>
+Date: Sun, 24 Feb 2019 16:59:44 -0300
+Subject: [PATCH 2/4] Read physical memory usage
+
+---
+ ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs | 3 ++-
+ ArchiSteamFarm/Steam/Interaction/Commands.cs        | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
+index 0ea13ec3..0ae4d929 100644
+--- a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
++++ b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
+@@ -21,6 +21,7 @@
+ 
+ using System;
+ using System.Collections.Generic;
++using System.Diagnostics;
+ using System.Globalization;
+ using System.Linq;
+ using System.Net;
+@@ -69,7 +70,7 @@ public sealed class ASFController : ArchiController {
+ 				throw new InvalidOperationException(nameof(ASF.GlobalConfig));
+ 			}
+ 
+-			uint memoryUsage = (uint) GC.GetTotalMemory(false) / 1024;
++			uint memoryUsage = (uint) Process.GetCurrentProcess().WorkingSet64 / 1024;
+ 
+ 			ASFResponse result = new(SharedInfo.BuildInfo.Variant, SharedInfo.BuildInfo.CanUpdate, ASF.GlobalConfig, memoryUsage, StaticHelpers.ProcessStartTime, SharedInfo.Version);
+ 
+diff --git a/ArchiSteamFarm/Steam/Interaction/Commands.cs b/ArchiSteamFarm/Steam/Interaction/Commands.cs
+index e916986e..092148a3 100644
+--- a/ArchiSteamFarm/Steam/Interaction/Commands.cs
++++ b/ArchiSteamFarm/Steam/Interaction/Commands.cs
+@@ -21,6 +21,7 @@
+ 
+ using System;
+ using System.Collections.Generic;
++using System.Diagnostics;
+ using System.Globalization;
+ using System.Linq;
+ using System.Net.Http;
+@@ -2966,7 +2967,7 @@ public sealed class Commands {
+ 				return null;
+ 			}
+ 
+-			ushort memoryInMegabytes = (ushort) (GC.GetTotalMemory(false) / 1024 / 1024);
++			ushort memoryInMegabytes = (ushort) (Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024);
+ 			TimeSpan uptime = DateTime.UtcNow.Subtract(StaticHelpers.ProcessStartTime.ToUniversalTime());
+ 
+ 			return FormatBotResponse(string.Format(CultureInfo.CurrentCulture, Strings.BotStats, memoryInMegabytes, uptime.ToHumanReadable()));
+-- 
+2.25.1
+

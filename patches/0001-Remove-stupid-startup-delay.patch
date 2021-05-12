@@ -1,0 +1,24 @@
+From 68c053908c12efc05d998e488efcbc2d5dc0fbdf Mon Sep 17 00:00:00 2001
+From: guihkx <guihkx@users.noreply.github.com>
+Date: Sun, 24 Feb 2019 16:53:17 -0300
+Subject: [PATCH 1/4] Remove stupid startup delay
+
+---
+ ArchiSteamFarm/Core/ASF.cs | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/ArchiSteamFarm/Core/ASF.cs b/ArchiSteamFarm/Core/ASF.cs
+index 64ea44ae..e5749b1d 100644
+--- a/ArchiSteamFarm/Core/ASF.cs
++++ b/ArchiSteamFarm/Core/ASF.cs
+@@ -885,7 +885,6 @@ public static class ASF {
+ 					return;
+ 				case > MaximumRecommendedBotsCount:
+ 					ArchiLogger.LogGenericWarning(string.Format(CultureInfo.CurrentCulture, Strings.WarningExcessiveBotsCount, MaximumRecommendedBotsCount));
+-					await Task.Delay(10000).ConfigureAwait(false);
+ 
+ 					break;
+ 			}
+-- 
+2.25.1
+

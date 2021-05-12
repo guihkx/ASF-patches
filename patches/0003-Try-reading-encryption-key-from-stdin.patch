@@ -1,0 +1,32 @@
+From 76927ce13a6bca488990f2b365301515edb67e01 Mon Sep 17 00:00:00 2001
+From: guihkx <guihkx@users.noreply.github.com>
+Date: Sun, 24 Feb 2019 17:29:02 -0300
+Subject: [PATCH 3/4] Try reading encryption key from stdin
+
+This allows us to pipe our cryptKey to ASF.
+---
+ ArchiSteamFarm/Program.cs | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/ArchiSteamFarm/Program.cs b/ArchiSteamFarm/Program.cs
+index f3e3d4e8..cfb676bb 100644
+--- a/ArchiSteamFarm/Program.cs
++++ b/ArchiSteamFarm/Program.cs
+@@ -176,6 +176,14 @@ internal static class Program {
+ 				}
+ 			}
+ 
++			if (Console.IsInputRedirected) {
++				string? stdinCryptKey = Console.In.ReadLine();
++
++				if (!string.IsNullOrEmpty(stdinCryptKey)) {
++					HandleCryptKeyArgument(stdinCryptKey!);
++				}
++			}
++
+ 			// Parse args
+ 			if (args != null) {
+ 				ParseArgs(args);
+-- 
+2.25.1
+
