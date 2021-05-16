@@ -8,10 +8,10 @@ npatches=$(find "$selfdir/patches" -type f -name '*.patch' | wc -l)
 cd "$selfdir"
 git submodule update --init --recursive
 cd 'ArchiSteamFarm'
-#git checkout patches || git checkout -b patches
 git checkout origin/main
 git am --abort || true
 git reset --hard origin/main
+git submodule foreach --recursive git reset --hard
 # apply our patches
 git am --reject "$selfdir/patches/"*.patch
 # self-update our patches
@@ -30,3 +30,4 @@ do
     dotnet publish ArchiSteamFarm -c 'Release' -f 'net5.0' -o "$selfdir/builds/$arch" ${runtime:+ -r "$arch" "-p:ASFVariant=$arch" '-p:PublishTrimmed=true' '-p:PublishSingleFile=true'}
 done
 git reset --hard origin/main
+git submodule foreach --recursive git reset --hard
