@@ -3,7 +3,6 @@
 ```
 git clone https://github.com/guihkx/ASF-patches.git
 ./ASF-patches/build.sh
-
 ```
 
 ```
