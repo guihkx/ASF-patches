@@ -1,4 +1,4 @@
-From 68c053908c12efc05d998e488efcbc2d5dc0fbdf Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: guihkx <guihkx@users.noreply.github.com>
 Date: Sun, 24 Feb 2019 16:53:17 -0300
 Subject: [PATCH 1/4] Remove stupid startup delay

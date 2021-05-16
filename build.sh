@@ -15,7 +15,7 @@ git submodule foreach --recursive git reset --hard
 # apply our patches
 git am --reject "$selfdir/patches/"*.patch
 # self-update our patches
-git format-patch -$npatches -o "$selfdir/patches"
+git format-patch -$npatches --zero-commit -o "$selfdir/patches"
 # build ASF-ui
 cd 'ASF-ui'
 test -d 'dist' && rm -rf 'dist'
