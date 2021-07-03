@@ -14,7 +14,7 @@ git am --abort || true
 # apply our patches
 git am --reject "$selfdir/patches/"*.patch
 # self-update our patches
-git format-patch -$npatches --zero-commit -o "$selfdir/patches"
+git format-patch -$npatches -N --zero-commit -o "$selfdir/patches"
 # build ASF-ui
 cd 'ASF-ui'
 test -d 'dist' && rm -rf 'dist'
