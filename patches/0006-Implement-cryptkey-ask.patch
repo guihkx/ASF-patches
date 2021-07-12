@@ -23,10 +23,10 @@ The implementation itself is garbage, but it works™.
  3 files changed, 27 insertions(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Core/ASF.cs b/ArchiSteamFarm/Core/ASF.cs
-index c46ac423..052a7b2f 100644
+index 839b8616..69d7f175 100644
 --- a/ArchiSteamFarm/Core/ASF.cs
 +++ b/ArchiSteamFarm/Core/ASF.cs
-@@ -1038,7 +1038,8 @@ public enum EUserInputType : byte {
+@@ -1043,7 +1043,8 @@ public enum EUserInputType : byte {
  			Password,
  			SteamGuard,
  			SteamParentalCode,
@@ -37,7 +37,7 @@ index c46ac423..052a7b2f 100644
  
  		internal enum EFileType : byte {
 diff --git a/ArchiSteamFarm/NLog/Logging.cs b/ArchiSteamFarm/NLog/Logging.cs
-index 60a59dfa..f318021b 100644
+index f23607f0..e8cbf78b 100644
 --- a/ArchiSteamFarm/NLog/Logging.cs
 +++ b/ArchiSteamFarm/NLog/Logging.cs
 @@ -119,6 +119,11 @@ internal static class Logging {
@@ -53,7 +53,7 @@ index 60a59dfa..f318021b 100644
  						default:
  							ASF.ArchiLogger.LogGenericError(string.Format(CultureInfo.CurrentCulture, Strings.WarningUnknownValuePleaseReport, nameof(userInputType), userInputType));
 diff --git a/ArchiSteamFarm/Program.cs b/ArchiSteamFarm/Program.cs
-index 2515ac5d..14c2a436 100644
+index 2bd6e17e..56a289d2 100644
 --- a/ArchiSteamFarm/Program.cs
 +++ b/ArchiSteamFarm/Program.cs
 @@ -56,6 +56,7 @@ internal static class Program {
@@ -82,7 +82,7 @@ index 2515ac5d..14c2a436 100644
  		private static void HandleNetworkGroupArgument(string networkGroup) {
  			if (string.IsNullOrEmpty(networkGroup)) {
  				throw new ArgumentNullException(nameof(networkGroup));
-@@ -229,6 +241,10 @@ internal static class Program {
+@@ -230,6 +242,10 @@ internal static class Program {
  				return false;
  			}
  
@@ -93,7 +93,7 @@ index 2515ac5d..14c2a436 100644
  			return true;
  		}
  
-@@ -510,6 +526,10 @@ internal static class Program {
+@@ -514,6 +530,10 @@ internal static class Program {
  					case "--cryptkey" when !cryptKeyNext && !networkGroupNext && !pathNext:
  						cryptKeyNext = true;
  
