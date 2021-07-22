@@ -9,7 +9,7 @@ This allows us to pipe our cryptKey to ASF.
  1 file changed, 8 insertions(+)
 
 diff --git a/ArchiSteamFarm/Program.cs b/ArchiSteamFarm/Program.cs
-index fec42da1..2bd6e17e 100644
+index 15edf226..c03000b5 100644
 --- a/ArchiSteamFarm/Program.cs
 +++ b/ArchiSteamFarm/Program.cs
 @@ -178,6 +178,14 @@ internal static class Program {
