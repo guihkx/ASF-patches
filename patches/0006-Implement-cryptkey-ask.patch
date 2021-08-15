@@ -23,10 +23,10 @@ The implementation itself is garbage, but it works™.
  3 files changed, 27 insertions(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Core/ASF.cs b/ArchiSteamFarm/Core/ASF.cs
-index 38dc0c13..9eef38d8 100644
+index 869615bb..17346329 100644
 --- a/ArchiSteamFarm/Core/ASF.cs
 +++ b/ArchiSteamFarm/Core/ASF.cs
-@@ -1046,7 +1046,8 @@ public enum EUserInputType : byte {
+@@ -1042,7 +1042,8 @@ public enum EUserInputType : byte {
  			Password,
  			SteamGuard,
  			SteamParentalCode,
@@ -53,10 +53,10 @@ index f23607f0..e8cbf78b 100644
  						default:
  							ASF.ArchiLogger.LogGenericError(string.Format(CultureInfo.CurrentCulture, Strings.WarningUnknownValuePleaseReport, nameof(userInputType), userInputType));
 diff --git a/ArchiSteamFarm/Program.cs b/ArchiSteamFarm/Program.cs
-index 09505b73..86bf7fb6 100644
+index 7c0f9e16..694bef4a 100644
 --- a/ArchiSteamFarm/Program.cs
 +++ b/ArchiSteamFarm/Program.cs
-@@ -56,6 +56,7 @@ internal static class Program {
+@@ -62,6 +62,7 @@ internal static class Program {
  		private static readonly TaskCompletionSource<byte> ShutdownResetEvent = new();
  
  		private static bool IgnoreUnsupportedEnvironment;
@@ -64,7 +64,7 @@ index 09505b73..86bf7fb6 100644
  		private static bool SystemRequired;
  
  		internal static async Task Exit(byte exitCode = 0) {
-@@ -101,6 +102,17 @@ internal static class Program {
+@@ -107,6 +108,17 @@ internal static class Program {
  			ArchiCryptoHelper.SetEncryptionKey(cryptKey);
  		}
  
@@ -82,7 +82,7 @@ index 09505b73..86bf7fb6 100644
  		private static void HandleNetworkGroupArgument(string networkGroup) {
  			if (string.IsNullOrEmpty(networkGroup)) {
  				throw new ArgumentNullException(nameof(networkGroup));
-@@ -233,6 +245,10 @@ internal static class Program {
+@@ -239,6 +251,10 @@ internal static class Program {
  				return false;
  			}
  
@@ -93,7 +93,7 @@ index 09505b73..86bf7fb6 100644
  			return true;
  		}
  
-@@ -499,6 +515,10 @@ internal static class Program {
+@@ -503,6 +519,10 @@ internal static class Program {
  					case "--CRYPTKEY" when !cryptKeyNext && !networkGroupNext && !pathNext:
  						cryptKeyNext = true;
  
