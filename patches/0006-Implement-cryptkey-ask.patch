@@ -53,10 +53,10 @@ index f23607f0..e8cbf78b 100644
  						default:
  							ASF.ArchiLogger.LogGenericError(string.Format(CultureInfo.CurrentCulture, Strings.WarningUnknownValuePleaseReport, nameof(userInputType), userInputType));
 diff --git a/ArchiSteamFarm/Program.cs b/ArchiSteamFarm/Program.cs
-index 7c0f9e16..694bef4a 100644
+index c9092c6a..1b41bf72 100644
 --- a/ArchiSteamFarm/Program.cs
 +++ b/ArchiSteamFarm/Program.cs
-@@ -62,6 +62,7 @@ internal static class Program {
+@@ -56,6 +56,7 @@ internal static class Program {
  		private static readonly TaskCompletionSource<byte> ShutdownResetEvent = new();
  
  		private static bool IgnoreUnsupportedEnvironment;
@@ -64,7 +64,7 @@ index 7c0f9e16..694bef4a 100644
  		private static bool SystemRequired;
  
  		internal static async Task Exit(byte exitCode = 0) {
-@@ -107,6 +108,17 @@ internal static class Program {
+@@ -101,6 +102,17 @@ internal static class Program {
  			ArchiCryptoHelper.SetEncryptionKey(cryptKey);
  		}
  
@@ -82,7 +82,7 @@ index 7c0f9e16..694bef4a 100644
  		private static void HandleNetworkGroupArgument(string networkGroup) {
  			if (string.IsNullOrEmpty(networkGroup)) {
  				throw new ArgumentNullException(nameof(networkGroup));
-@@ -239,6 +251,10 @@ internal static class Program {
+@@ -233,6 +245,10 @@ internal static class Program {
  				return false;
  			}
  
@@ -93,7 +93,7 @@ index 7c0f9e16..694bef4a 100644
  			return true;
  		}
  
-@@ -503,6 +519,10 @@ internal static class Program {
+@@ -491,6 +507,10 @@ internal static class Program {
  					case "--CRYPTKEY" when !cryptKeyNext && !networkGroupNext && !pathNext:
  						cryptKeyNext = true;
  
