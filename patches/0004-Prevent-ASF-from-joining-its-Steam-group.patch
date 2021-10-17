@@ -9,10 +9,10 @@ Even when `Statistics` is set to `true`.
  1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/ArchiSteamFarm/Core/Statistics.cs b/ArchiSteamFarm/Core/Statistics.cs
-index 75b123c1..944c40f1 100644
+index fcdb568b..a4117c7e 100644
 --- a/ArchiSteamFarm/Core/Statistics.cs
 +++ b/ArchiSteamFarm/Core/Statistics.cs
-@@ -138,10 +138,8 @@ internal sealed class Statistics : IAsyncDisposable {
+@@ -136,10 +136,8 @@ internal sealed class Statistics : IAsyncDisposable {
  			}
  		}
  
