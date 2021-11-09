@@ -26,5 +26,5 @@ for arch in 'source' 'linux-x64' 'win-x64' 'linux-arm64'
 do
     [[ $arch != 'source' ]] && runtime=1 || unset runtime
     rm -rf "$selfdir/builds/$arch"
-    dotnet publish ArchiSteamFarm -c 'Release' -f 'net5.0' -o "$selfdir/builds/$arch" ${runtime:+ -r "$arch" "-p:ASFVariant=$arch" '-p:PublishTrimmed=true' '-p:PublishSingleFile=true'}
+    dotnet publish ArchiSteamFarm -c 'Release' -f 'net6.0' -o "$selfdir/builds/$arch" ${runtime:+ -r "$arch" "-p:ASFVariant=$arch" '-p:PublishTrimmed=true' '-p:PublishSingleFile=true' '--self-contained'}
 done
