@@ -9,47 +9,47 @@ Subject: [PATCH] Read physical memory usage
  2 files changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
-index a96939a9..fc424f81 100644
+index 7e5d01f2..a9a19e64 100644
 --- a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
 +++ b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
-@@ -24,6 +24,7 @@
- #endif
+@@ -21,6 +21,7 @@
+ 
  using System;
  using System.Collections.Generic;
 +using System.Diagnostics;
  using System.Globalization;
  using System.Linq;
  using System.Net;
-@@ -71,7 +72,7 @@ public sealed class ASFController : ArchiController {
- 				throw new InvalidOperationException(nameof(ASF.GlobalConfig));
- 			}
+@@ -69,7 +70,7 @@ public sealed class ASFController : ArchiController {
+ 			throw new InvalidOperationException(nameof(ASF.GlobalConfig));
+ 		}
  
--			uint memoryUsage = (uint) GC.GetTotalMemory(false) / 1024;
-+			uint memoryUsage = (uint) Process.GetCurrentProcess().WorkingSet64 / 1024;
+-		uint memoryUsage = (uint) GC.GetTotalMemory(false) / 1024;
++		uint memoryUsage = (uint) Process.GetCurrentProcess().WorkingSet64 / 1024;
  
- 			ASFResponse result = new(SharedInfo.BuildInfo.Variant, SharedInfo.BuildInfo.CanUpdate, ASF.GlobalConfig, memoryUsage, OS.ProcessStartTime, SharedInfo.Version);
+ 		ASFResponse result = new(SharedInfo.BuildInfo.Variant, SharedInfo.BuildInfo.CanUpdate, ASF.GlobalConfig, memoryUsage, OS.ProcessStartTime, SharedInfo.Version);
  
 diff --git a/ArchiSteamFarm/Steam/Interaction/Commands.cs b/ArchiSteamFarm/Steam/Interaction/Commands.cs
-index 0db24c6a..5c274e48 100644
+index f0e40785..f7ad8fa4 100644
 --- a/ArchiSteamFarm/Steam/Interaction/Commands.cs
 +++ b/ArchiSteamFarm/Steam/Interaction/Commands.cs
-@@ -24,6 +24,7 @@
- #endif
+@@ -21,6 +21,7 @@
+ 
  using System;
  using System.Collections.Generic;
 +using System.Diagnostics;
  using System.Globalization;
  using System.Linq;
  using System.Net.Http;
-@@ -3021,7 +3022,7 @@ public sealed class Commands {
- 				return null;
- 			}
+@@ -3019,7 +3020,7 @@ public sealed class Commands {
+ 			return null;
+ 		}
  
--			ushort memoryInMegabytes = (ushort) (GC.GetTotalMemory(false) / 1024 / 1024);
-+			ushort memoryInMegabytes = (ushort) (Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024);
- 			TimeSpan uptime = DateTime.UtcNow.Subtract(OS.ProcessStartTime);
+-		ushort memoryInMegabytes = (ushort) (GC.GetTotalMemory(false) / 1024 / 1024);
++		ushort memoryInMegabytes = (ushort) (Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024);
+ 		TimeSpan uptime = DateTime.UtcNow.Subtract(OS.ProcessStartTime);
  
- 			return FormatBotResponse(string.Format(CultureInfo.CurrentCulture, Strings.BotStats, memoryInMegabytes, uptime.ToHumanReadable()));
+ 		return FormatBotResponse(string.Format(CultureInfo.CurrentCulture, Strings.BotStats, memoryInMegabytes, uptime.ToHumanReadable()));
 -- 
 2.25.1
 

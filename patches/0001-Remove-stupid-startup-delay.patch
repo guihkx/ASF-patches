@@ -8,17 +8,17 @@ Subject: [PATCH] Remove stupid startup delay
  1 file changed, 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Core/ASF.cs b/ArchiSteamFarm/Core/ASF.cs
-index 83cd7c93..fcf5a054 100644
+index b9a34d92..085e8383 100644
 --- a/ArchiSteamFarm/Core/ASF.cs
 +++ b/ArchiSteamFarm/Core/ASF.cs
-@@ -862,7 +862,6 @@ public static class ASF {
- 					return;
- 				case > MaximumRecommendedBotsCount:
- 					ArchiLogger.LogGenericWarning(string.Format(CultureInfo.CurrentCulture, Strings.WarningExcessiveBotsCount, MaximumRecommendedBotsCount));
--					await Task.Delay(SharedInfo.InformationDelay).ConfigureAwait(false);
+@@ -855,7 +855,6 @@ public static class ASF {
+ 				return;
+ 			case > MaximumRecommendedBotsCount:
+ 				ArchiLogger.LogGenericWarning(string.Format(CultureInfo.CurrentCulture, Strings.WarningExcessiveBotsCount, MaximumRecommendedBotsCount));
+-				await Task.Delay(SharedInfo.InformationDelay).ConfigureAwait(false);
  
- 					break;
- 			}
+ 				break;
+ 		}
 -- 
 2.25.1
 

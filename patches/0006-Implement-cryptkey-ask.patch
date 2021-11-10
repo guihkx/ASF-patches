@@ -19,91 +19,90 @@ The implementation itself is garbage, but it works™.
 ---
  ArchiSteamFarm/Core/ASF.cs     |  3 ++-
  ArchiSteamFarm/NLog/Logging.cs |  5 +++++
- ArchiSteamFarm/Program.cs      | 20 ++++++++++++++++++++
- 3 files changed, 27 insertions(+), 1 deletion(-)
+ ArchiSteamFarm/Program.cs      | 19 +++++++++++++++++++
+ 3 files changed, 26 insertions(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Core/ASF.cs b/ArchiSteamFarm/Core/ASF.cs
-index fcf5a054..8ec1e786 100644
+index 085e8383..3d9e63ac 100644
 --- a/ArchiSteamFarm/Core/ASF.cs
 +++ b/ArchiSteamFarm/Core/ASF.cs
-@@ -1042,7 +1042,8 @@ public enum EUserInputType : byte {
- 			Password,
- 			SteamGuard,
- 			SteamParentalCode,
--			TwoFactorAuthentication
-+			TwoFactorAuthentication,
-+			CryptKey
- 		}
+@@ -1035,7 +1035,8 @@ public enum EUserInputType : byte {
+ 		Password,
+ 		SteamGuard,
+ 		SteamParentalCode,
+-		TwoFactorAuthentication
++		TwoFactorAuthentication,
++		CryptKey
+ 	}
  
- 		internal enum EFileType : byte {
+ 	internal enum EFileType : byte {
 diff --git a/ArchiSteamFarm/NLog/Logging.cs b/ArchiSteamFarm/NLog/Logging.cs
-index b0a4bf14..1df173c9 100644
+index 96260145..7ba37b37 100644
 --- a/ArchiSteamFarm/NLog/Logging.cs
 +++ b/ArchiSteamFarm/NLog/Logging.cs
-@@ -119,6 +119,11 @@ internal static class Logging {
- 							Console.Write(Bot.FormatBotResponse(Strings.UserInputSteam2FA, botName));
- 							result = ConsoleReadLine();
- 
-+							break;
-+						case ASF.EUserInputType.CryptKey:
-+							Console.Write(Bot.FormatBotResponse("Please type in the decryption key: ", botName));
-+							result = ConsoleReadLineMasked();
-+
- 							break;
- 						default:
- 							ASF.ArchiLogger.LogGenericError(string.Format(CultureInfo.CurrentCulture, Strings.WarningUnknownValuePleaseReport, nameof(userInputType), userInputType));
-diff --git a/ArchiSteamFarm/Program.cs b/ArchiSteamFarm/Program.cs
-index 6024b366..cfb0a809 100644
---- a/ArchiSteamFarm/Program.cs
-+++ b/ArchiSteamFarm/Program.cs
-@@ -55,6 +55,7 @@ internal static class Program {
- 		private static readonly TaskCompletionSource<byte> ShutdownResetEvent = new();
- 
- 		private static bool IgnoreUnsupportedEnvironment;
-+		private static bool CryptKeyAsk;
- 		private static bool SystemRequired;
- 
- 		internal static async Task Exit(byte exitCode = 0) {
-@@ -100,6 +101,17 @@ internal static class Program {
- 			ArchiCryptoHelper.SetEncryptionKey(cryptKey);
- 		}
- 
-+		private async static void HandleCryptKeyAskArgument() {
-+			string? cryptKey = await Logging.GetUserInput(ASF.EUserInputType.CryptKey).ConfigureAwait(false);
-+
-+			if (string.IsNullOrEmpty(cryptKey)) {
-+				ASF.ArchiLogger.LogGenericError(string.Format(CultureInfo.CurrentCulture, Strings.ErrorIsInvalid, nameof(cryptKey)));
-+				return;
-+			}
-+
-+			ArchiCryptoHelper.SetEncryptionKey(cryptKey);
-+		}
-+
- 		private static void HandleNetworkGroupArgument(string networkGroup) {
- 			if (string.IsNullOrEmpty(networkGroup)) {
- 				throw new ArgumentNullException(nameof(networkGroup));
-@@ -244,6 +256,10 @@ internal static class Program {
- 				return false;
- 			}
- 
-+			if (CryptKeyAsk) {
-+				HandleCryptKeyAskArgument();
-+			}
-+
- 			return true;
- 		}
- 
-@@ -453,6 +469,10 @@ internal static class Program {
- 					case "--CRYPTKEY" when !cryptKeyNext && !networkGroupNext && !pathNext:
- 						cryptKeyNext = true;
+@@ -115,6 +115,11 @@ internal static class Logging {
+ 						Console.Write(Bot.FormatBotResponse(Strings.UserInputSteamParentalCode, botName));
+ 						result = ConsoleReadLineMasked();
  
 +						break;
-+					case "--CRYPTKEY-ASK" when !cryptKeyNext && !networkGroupNext && !pathNext:
-+						CryptKeyAsk = true;
++					case ASF.EUserInputType.CryptKey:
++						Console.Write(Bot.FormatBotResponse("Please type in the decryption key: ", botName));
++						result = ConsoleReadLineMasked();
 +
  						break;
- 					case "--IGNORE-UNSUPPORTED-ENVIRONMENT" when !cryptKeyNext && !networkGroupNext && !pathNext:
- 						IgnoreUnsupportedEnvironment = true;
+ 					case ASF.EUserInputType.TwoFactorAuthentication:
+ 						Console.Write(Bot.FormatBotResponse(Strings.UserInputSteam2FA, botName));
+diff --git a/ArchiSteamFarm/Program.cs b/ArchiSteamFarm/Program.cs
+index b4b3479b..896d8904 100644
+--- a/ArchiSteamFarm/Program.cs
++++ b/ArchiSteamFarm/Program.cs
+@@ -66,6 +66,7 @@ internal static class Program {
+ #endif
+ 
+ 	private static bool IgnoreUnsupportedEnvironment;
++	private static bool CryptKeyAsk;
+ 	private static bool SystemRequired;
+ 
+ 	internal static async Task Exit(byte exitCode = 0) {
+@@ -110,6 +111,16 @@ internal static class Program {
+ 
+ 		ArchiCryptoHelper.SetEncryptionKey(cryptKey);
+ 	}
++	private async static void HandleCryptKeyAskArgument() {
++		string? cryptKey = await Logging.GetUserInput(ASF.EUserInputType.CryptKey).ConfigureAwait(false);
++
++		if (string.IsNullOrEmpty(cryptKey)) {
++			ASF.ArchiLogger.LogGenericError(string.Format(CultureInfo.CurrentCulture, Strings.ErrorIsInvalid, nameof(cryptKey)));
++			return;
++		}
++
++		ArchiCryptoHelper.SetEncryptionKey(cryptKey);
++	}
+ 
+ 	private static void HandleNetworkGroupArgument(string networkGroup) {
+ 		if (string.IsNullOrEmpty(networkGroup)) {
+@@ -262,6 +273,10 @@ internal static class Program {
+ 			return false;
+ 		}
+ 
++		if (CryptKeyAsk) {
++			HandleCryptKeyAskArgument();
++		}
++
+ 		return true;
+ 	}
+ 
+@@ -501,6 +516,10 @@ internal static class Program {
+ 				case "--CRYPTKEY" when !cryptKeyNext && !networkGroupNext && !pathNext:
+ 					cryptKeyNext = true;
+ 
++					break;
++				case "--CRYPTKEY-ASK" when !cryptKeyNext && !networkGroupNext && !pathNext:
++					CryptKeyAsk = true;
++
+ 					break;
+ 				case "--IGNORE-UNSUPPORTED-ENVIRONMENT" when !cryptKeyNext && !networkGroupNext && !pathNext:
+ 					IgnoreUnsupportedEnvironment = true;
 -- 
 2.25.1
 
