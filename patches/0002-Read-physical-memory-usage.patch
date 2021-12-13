@@ -9,7 +9,7 @@ Subject: [PATCH] Read physical memory usage
  2 files changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
-index 7e5d01f2..a9a19e64 100644
+index 0cf846b3..47a568b1 100644
 --- a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
 +++ b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
 @@ -21,6 +21,7 @@
@@ -20,7 +20,7 @@ index 7e5d01f2..a9a19e64 100644
  using System.Globalization;
  using System.Linq;
  using System.Net;
-@@ -69,7 +70,7 @@ public sealed class ASFController : ArchiController {
+@@ -67,7 +68,7 @@ public sealed class ASFController : ArchiController {
  			throw new InvalidOperationException(nameof(ASF.GlobalConfig));
  		}
  
@@ -30,7 +30,7 @@ index 7e5d01f2..a9a19e64 100644
  		ASFResponse result = new(SharedInfo.BuildInfo.Variant, SharedInfo.BuildInfo.CanUpdate, ASF.GlobalConfig, memoryUsage, OS.ProcessStartTime, SharedInfo.Version);
  
 diff --git a/ArchiSteamFarm/Steam/Interaction/Commands.cs b/ArchiSteamFarm/Steam/Interaction/Commands.cs
-index 15ac7d4c..3cbde75a 100644
+index 6f17f2a3..586f3c0e 100644
 --- a/ArchiSteamFarm/Steam/Interaction/Commands.cs
 +++ b/ArchiSteamFarm/Steam/Interaction/Commands.cs
 @@ -21,6 +21,7 @@
@@ -41,7 +41,7 @@ index 15ac7d4c..3cbde75a 100644
  using System.Globalization;
  using System.Linq;
  using System.Net.Http;
-@@ -2888,7 +2889,7 @@ public sealed class Commands {
+@@ -2837,7 +2838,7 @@ public sealed class Commands {
  			return null;
  		}
  

@@ -9,12 +9,12 @@ This allows us to pipe our cryptKey to ASF.
  1 file changed, 8 insertions(+)
 
 diff --git a/ArchiSteamFarm/Program.cs b/ArchiSteamFarm/Program.cs
-index c1696136..a433aa6a 100644
+index 83e62eb9..1b6890e2 100644
 --- a/ArchiSteamFarm/Program.cs
 +++ b/ArchiSteamFarm/Program.cs
-@@ -201,6 +201,14 @@ internal static class Program {
- 		// Parse environment variables
- 		ParseEnvironmentVariables();
+@@ -227,6 +227,14 @@ internal static class Program {
+ 			return false;
+ 		}
  
 +		if (Console.IsInputRedirected) {
 +			string? stdinCryptKey = await Console.In.ReadLineAsync().ConfigureAwait(false);
@@ -26,7 +26,7 @@ index c1696136..a433aa6a 100644
 +
  		// Parse args
  		if (args?.Count > 0) {
- 			ParseArgs(args);
+ 			if (!ParseArgs(args)) {
 -- 
 2.25.1
 
