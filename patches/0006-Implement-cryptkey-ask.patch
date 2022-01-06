@@ -23,10 +23,10 @@ The implementation itself is garbage, but it works™.
  3 files changed, 26 insertions(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Core/ASF.cs b/ArchiSteamFarm/Core/ASF.cs
-index ef6dccde..0013baa4 100644
+index 6925fe40..4f86e6a1 100644
 --- a/ArchiSteamFarm/Core/ASF.cs
 +++ b/ArchiSteamFarm/Core/ASF.cs
-@@ -1067,7 +1067,8 @@ public enum EUserInputType : byte {
+@@ -1069,7 +1069,8 @@ public enum EUserInputType : byte {
  		Password,
  		SteamGuard,
  		SteamParentalCode,
@@ -37,7 +37,7 @@ index ef6dccde..0013baa4 100644
  
  	internal enum EFileType : byte {
 diff --git a/ArchiSteamFarm/NLog/Logging.cs b/ArchiSteamFarm/NLog/Logging.cs
-index 248b90e6..ad734b4a 100644
+index 996d799e..a7dc949e 100644
 --- a/ArchiSteamFarm/NLog/Logging.cs
 +++ b/ArchiSteamFarm/NLog/Logging.cs
 @@ -115,6 +115,11 @@ internal static class Logging {
@@ -53,7 +53,7 @@ index 248b90e6..ad734b4a 100644
  					case ASF.EUserInputType.TwoFactorAuthentication:
  						Console.Write(Bot.FormatBotResponse(Strings.UserInputSteam2FA, botName));
 diff --git a/ArchiSteamFarm/Program.cs b/ArchiSteamFarm/Program.cs
-index 1b6890e2..567cff70 100644
+index fd0ea2dc..57dc4042 100644
 --- a/ArchiSteamFarm/Program.cs
 +++ b/ArchiSteamFarm/Program.cs
 @@ -66,6 +66,7 @@ internal static class Program {
@@ -81,7 +81,7 @@ index 1b6890e2..567cff70 100644
  
  	private static void HandleNetworkGroupArgument(string networkGroup) {
  		if (string.IsNullOrEmpty(networkGroup)) {
-@@ -291,6 +302,10 @@ internal static class Program {
+@@ -287,6 +298,10 @@ internal static class Program {
  			return false;
  		}
  
@@ -92,7 +92,7 @@ index 1b6890e2..567cff70 100644
  		return true;
  	}
  
-@@ -528,6 +543,10 @@ internal static class Program {
+@@ -524,6 +539,10 @@ internal static class Program {
  				case "--CRYPTKEY" when !cryptKeyNext && !networkGroupNext && !pathNext:
  					cryptKeyNext = true;
  
