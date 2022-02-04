@@ -3,7 +3,6 @@
 set -eu
 
 selfdir=$(dirname "$(readlink -f "$0")")
-npatches=$(find "$selfdir/patches" -type f -name '*.patch' | wc -l)
 
 cd "$selfdir"
 git submodule sync --recursive
@@ -11,10 +10,13 @@ git submodule update --init --recursive
 git submodule foreach --recursive git reset --hard
 cd 'ArchiSteamFarm'
 git am --abort || true
-# apply our patches
-git am --reject "$selfdir/patches/"*.patch
-# self-update our patches
-git format-patch -$npatches -N --zero-commit -o "$selfdir/patches"
+# apply our patches one by one
+for patch_file in "$selfdir/patches/"*.patch
+do
+    git am --reject "$patch_file"
+    # self-update this patch
+    git format-patch -1 -N --zero-commit -o "$selfdir/patches/"
+done
 # build ASF-ui
 cd 'ASF-ui'
 test -d 'dist' && rm -rf 'dist'
