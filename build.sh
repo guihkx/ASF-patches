@@ -15,7 +15,7 @@ for patch_file in "$selfdir/patches/"*.patch
 do
     git am --reject "$patch_file"
     # self-update this patch
-    git format-patch -1 -N --zero-commit -o "$selfdir/patches/"
+    git format-patch -1 -N -k --zero-commit -o "$selfdir/patches/"
 done
 # build ASF-ui
 cd 'ASF-ui'

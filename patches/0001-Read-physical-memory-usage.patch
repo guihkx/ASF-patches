@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: guihkx <guihkx@users.noreply.github.com>
 Date: Sun, 24 Feb 2019 16:59:44 -0300
-Subject: [PATCH] Read physical memory usage
+Subject: Read physical memory usage
 
 ---
  ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs | 3 ++-

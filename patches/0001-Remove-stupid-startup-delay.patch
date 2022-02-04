@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: guihkx <guihkx@users.noreply.github.com>
 Date: Sun, 24 Feb 2019 16:53:17 -0300
-Subject: [PATCH] Remove stupid startup delay
+Subject: Remove stupid startup delay
 
 ---
  ArchiSteamFarm/Core/ASF.cs | 1 -
