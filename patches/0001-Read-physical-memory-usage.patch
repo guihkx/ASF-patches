@@ -30,18 +30,18 @@ index dfa91830..154c8ccf 100644
  		ASFResponse result = new(SharedInfo.BuildInfo.Variant, SharedInfo.BuildInfo.CanUpdate, ASF.GlobalConfig, memoryUsage, OS.ProcessStartTime, SharedInfo.Version);
  
 diff --git a/ArchiSteamFarm/Steam/Interaction/Commands.cs b/ArchiSteamFarm/Steam/Interaction/Commands.cs
-index ec320f9e..fb205837 100644
+index 3afb87cf..cac2bd37 100644
 --- a/ArchiSteamFarm/Steam/Interaction/Commands.cs
 +++ b/ArchiSteamFarm/Steam/Interaction/Commands.cs
-@@ -21,6 +21,7 @@
- 
+@@ -22,6 +22,7 @@
  using System;
  using System.Collections.Generic;
+ using System.ComponentModel;
 +using System.Diagnostics;
  using System.Globalization;
  using System.Linq;
  using System.Net.Http;
-@@ -2837,7 +2838,7 @@ public sealed class Commands {
+@@ -2858,7 +2859,7 @@ public sealed class Commands {
  			return null;
  		}
  
