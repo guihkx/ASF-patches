@@ -23,7 +23,7 @@ The implementation itself is garbage, but it works™.
  3 files changed, 26 insertions(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Core/ASF.cs b/ArchiSteamFarm/Core/ASF.cs
-index db498f8a..073febb6 100644
+index e49adee8..e6c296bb 100644
 --- a/ArchiSteamFarm/Core/ASF.cs
 +++ b/ArchiSteamFarm/Core/ASF.cs
 @@ -1084,7 +1084,8 @@ public enum EUserInputType : byte {
@@ -37,7 +37,7 @@ index db498f8a..073febb6 100644
  
  	internal enum EFileType : byte {
 diff --git a/ArchiSteamFarm/NLog/Logging.cs b/ArchiSteamFarm/NLog/Logging.cs
-index 3152a4ff..92f96418 100644
+index 10831817..8bdbc24b 100644
 --- a/ArchiSteamFarm/NLog/Logging.cs
 +++ b/ArchiSteamFarm/NLog/Logging.cs
 @@ -115,6 +115,11 @@ internal static class Logging {
@@ -53,10 +53,10 @@ index 3152a4ff..92f96418 100644
  					case ASF.EUserInputType.TwoFactorAuthentication:
  						Console.Write(Bot.FormatBotResponse(Strings.UserInputSteam2FA, botName));
 diff --git a/ArchiSteamFarm/Program.cs b/ArchiSteamFarm/Program.cs
-index 0f44729a..e5dfb2f4 100644
+index ac3c8053..512d23b2 100644
 --- a/ArchiSteamFarm/Program.cs
 +++ b/ArchiSteamFarm/Program.cs
-@@ -66,6 +66,7 @@ internal static class Program {
+@@ -67,6 +67,7 @@ internal static class Program {
  #endif
  
  	private static bool IgnoreUnsupportedEnvironment;
@@ -64,7 +64,7 @@ index 0f44729a..e5dfb2f4 100644
  	private static bool SystemRequired;
  
  	internal static async Task Exit(byte exitCode = 0) {
-@@ -110,6 +111,16 @@ internal static class Program {
+@@ -111,6 +112,16 @@ internal static class Program {
  
  		ArchiCryptoHelper.SetEncryptionKey(cryptKey);
  	}
@@ -81,7 +81,7 @@ index 0f44729a..e5dfb2f4 100644
  
  	private static void HandleNetworkGroupArgument(string networkGroup) {
  		if (string.IsNullOrEmpty(networkGroup)) {
-@@ -279,6 +290,10 @@ internal static class Program {
+@@ -282,6 +293,10 @@ internal static class Program {
  			return false;
  		}
  
@@ -92,7 +92,7 @@ index 0f44729a..e5dfb2f4 100644
  		return true;
  	}
  
-@@ -509,6 +524,10 @@ internal static class Program {
+@@ -512,6 +527,10 @@ internal static class Program {
  				case "--CRYPTKEY" when !cryptKeyNext && !networkGroupNext && !pathNext:
  					cryptKeyNext = true;
  

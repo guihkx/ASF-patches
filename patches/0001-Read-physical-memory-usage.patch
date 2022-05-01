@@ -9,7 +9,7 @@ Subject: Read physical memory usage
  2 files changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
-index dfa91830..154c8ccf 100644
+index d35b3a28..76802a5c 100644
 --- a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
 +++ b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
 @@ -21,6 +21,7 @@

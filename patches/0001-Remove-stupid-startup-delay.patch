@@ -8,7 +8,7 @@ Subject: Remove stupid startup delay
  1 file changed, 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Core/ASF.cs b/ArchiSteamFarm/Core/ASF.cs
-index 073febb6..44fb15d9 100644
+index e6c296bb..98653fc3 100644
 --- a/ArchiSteamFarm/Core/ASF.cs
 +++ b/ArchiSteamFarm/Core/ASF.cs
 @@ -900,7 +900,6 @@ public static class ASF {
