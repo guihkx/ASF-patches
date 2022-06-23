@@ -8,10 +8,10 @@ Subject: Lower AutoSteamSaleEvent interval from 8 to 3 hours
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Steam/Integration/SteamSaleEvent.cs b/ArchiSteamFarm/Steam/Integration/SteamSaleEvent.cs
-index c72a3a83..f23ada92 100644
+index 1e70a54a..f911231e 100644
 --- a/ArchiSteamFarm/Steam/Integration/SteamSaleEvent.cs
 +++ b/ArchiSteamFarm/Steam/Integration/SteamSaleEvent.cs
-@@ -46,7 +46,7 @@ internal sealed class SteamSaleEvent : IAsyncDisposable {
+@@ -43,7 +43,7 @@ internal sealed class SteamSaleEvent : IAsyncDisposable, IDisposable {
  			ExploreDiscoveryQueue,
  			null,
  			TimeSpan.FromHours(1.1) + TimeSpan.FromSeconds(ASF.LoadBalancingDelay * Bot.Bots?.Count ?? 0), // Delay
