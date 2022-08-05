@@ -23,10 +23,10 @@ The implementation itself is garbage, but it works™.
  3 files changed, 26 insertions(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Core/ASF.cs b/ArchiSteamFarm/Core/ASF.cs
-index 6bfccab2..b8bce6d3 100644
+index 43574844..3e8bc02b 100644
 --- a/ArchiSteamFarm/Core/ASF.cs
 +++ b/ArchiSteamFarm/Core/ASF.cs
-@@ -1082,7 +1082,8 @@ public enum EUserInputType : byte {
+@@ -1065,7 +1065,8 @@ public enum EUserInputType : byte {
  		Password,
  		SteamGuard,
  		SteamParentalCode,
@@ -37,10 +37,10 @@ index 6bfccab2..b8bce6d3 100644
  
  	internal enum EFileType : byte {
 diff --git a/ArchiSteamFarm/NLog/Logging.cs b/ArchiSteamFarm/NLog/Logging.cs
-index f8f3b609..2fe0b7a4 100644
+index fd487601..1a87a4a8 100644
 --- a/ArchiSteamFarm/NLog/Logging.cs
 +++ b/ArchiSteamFarm/NLog/Logging.cs
-@@ -115,6 +115,11 @@ internal static class Logging {
+@@ -117,6 +117,11 @@ internal static class Logging {
  						Console.Write(Bot.FormatBotResponse(Strings.UserInputSteamParentalCode, botName));
  						result = ConsoleReadLineMasked();
  
@@ -104,5 +104,5 @@ index 795c56bb..0a5532ee 100644
  				case "--IGNORE-UNSUPPORTED-ENVIRONMENT" when !cryptKeyNext && !networkGroupNext && !pathNext:
  					IgnoreUnsupportedEnvironment = true;
 -- 
-2.36.1
+2.37.1
 
