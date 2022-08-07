@@ -23,7 +23,7 @@ The implementation itself is garbage, but it works™.
  3 files changed, 26 insertions(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Core/ASF.cs b/ArchiSteamFarm/Core/ASF.cs
-index 43574844..3e8bc02b 100644
+index 3288352f..7fd0668f 100644
 --- a/ArchiSteamFarm/Core/ASF.cs
 +++ b/ArchiSteamFarm/Core/ASF.cs
 @@ -1065,7 +1065,8 @@ public enum EUserInputType : byte {
