@@ -1,7 +1,7 @@
 # ASF-patches
 
 ```
-git clone https://github.com/guihkx/ASF-patches.git
+git clone https://github.com/guihkx/ASF-patches.git --recurse-submodules
 ./ASF-patches/build.sh
 ```
 
