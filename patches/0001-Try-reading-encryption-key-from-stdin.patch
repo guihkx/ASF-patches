@@ -9,10 +9,10 @@ This allows us to pipe our cryptKey to ASF.
  1 file changed, 8 insertions(+)
 
 diff --git a/ArchiSteamFarm/Program.cs b/ArchiSteamFarm/Program.cs
-index 0a5532ee..a47c538a 100644
+index 3a5909d5..ed150b1f 100644
 --- a/ArchiSteamFarm/Program.cs
 +++ b/ArchiSteamFarm/Program.cs
-@@ -237,6 +237,14 @@ internal static class Program {
+@@ -270,6 +270,14 @@ internal static class Program {
  			return false;
  		}
  
@@ -26,7 +26,7 @@ index 0a5532ee..a47c538a 100644
 +
  		// Parse args
  		if (args?.Count > 0) {
- 			if (!ParseArgs(args)) {
+ 			if (!await ParseArgs(args).ConfigureAwait(false)) {
 -- 
-2.37.1
+2.37.3
 

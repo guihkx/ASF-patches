@@ -19,8 +19,8 @@ The implementation itself is garbage, but it works™.
 ---
  ArchiSteamFarm/Core/ASF.cs     |  3 ++-
  ArchiSteamFarm/NLog/Logging.cs |  5 +++++
- ArchiSteamFarm/Program.cs      | 19 +++++++++++++++++++
- 3 files changed, 26 insertions(+), 1 deletion(-)
+ ArchiSteamFarm/Program.cs      | 20 ++++++++++++++++++++
+ 3 files changed, 27 insertions(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Core/ASF.cs b/ArchiSteamFarm/Core/ASF.cs
 index 3288352f..7fd0668f 100644
@@ -53,7 +53,7 @@ index fd487601..1a87a4a8 100644
  					case ASF.EUserInputType.TwoFactorAuthentication:
  						Console.Write(Bot.FormatBotResponse(Strings.UserInputSteam2FA, botName));
 diff --git a/ArchiSteamFarm/Program.cs b/ArchiSteamFarm/Program.cs
-index 795c56bb..0a5532ee 100644
+index 504a4a50..3a5909d5 100644
 --- a/ArchiSteamFarm/Program.cs
 +++ b/ArchiSteamFarm/Program.cs
 @@ -67,6 +67,7 @@ internal static class Program {
@@ -64,10 +64,10 @@ index 795c56bb..0a5532ee 100644
  	private static bool SystemRequired;
  
  	internal static async Task Exit(byte exitCode = 0) {
-@@ -111,6 +112,16 @@ internal static class Program {
- 
+@@ -112,6 +113,17 @@ internal static class Program {
  		ArchiCryptoHelper.SetEncryptionKey(cryptKey);
  	}
+ 
 +	private async static void HandleCryptKeyAskArgument() {
 +		string? cryptKey = await Logging.GetUserInput(ASF.EUserInputType.CryptKey).ConfigureAwait(false);
 +
@@ -78,10 +78,11 @@ index 795c56bb..0a5532ee 100644
 +
 +		ArchiCryptoHelper.SetEncryptionKey(cryptKey);
 +	}
- 
- 	private static void HandleNetworkGroupArgument(string networkGroup) {
- 		if (string.IsNullOrEmpty(networkGroup)) {
-@@ -282,6 +293,10 @@ internal static class Program {
++
+ 	private static async Task<bool> HandleCryptKeyFileArgument(string cryptKeyFile) {
+ 		if (string.IsNullOrEmpty(cryptKeyFile)) {
+ 			throw new ArgumentNullException(nameof(cryptKeyFile));
+@@ -314,6 +326,10 @@ internal static class Program {
  			return false;
  		}
  
@@ -92,17 +93,17 @@ index 795c56bb..0a5532ee 100644
  		return true;
  	}
  
-@@ -508,6 +523,10 @@ internal static class Program {
- 				case "--CRYPTKEY" when !cryptKeyNext && !networkGroupNext && !pathNext:
+@@ -541,6 +557,10 @@ internal static class Program {
+ 				case "--CRYPTKEY" when !cryptKeyNext && !cryptKeyFileNext && !networkGroupNext && !pathNext:
  					cryptKeyNext = true;
  
 +					break;
-+				case "--CRYPTKEY-ASK" when !cryptKeyNext && !networkGroupNext && !pathNext:
++				case "--CRYPTKEY-ASK" when !cryptKeyNext && !cryptKeyFileNext && !networkGroupNext && !pathNext:
 +					CryptKeyAsk = true;
 +
  					break;
- 				case "--IGNORE-UNSUPPORTED-ENVIRONMENT" when !cryptKeyNext && !networkGroupNext && !pathNext:
- 					IgnoreUnsupportedEnvironment = true;
+ 				case "--CRYPTKEY-FILE" when !cryptKeyNext && !cryptKeyFileNext && !networkGroupNext && !pathNext:
+ 					cryptKeyFileNext = true;
 -- 
-2.37.1
+2.37.3
 
