@@ -1,0 +1,89 @@
+name: Build artifacts
+on:
+  push:
+    paths-ignore:
+      - "**.md"
+  pull_request:
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_NOLOGO: true
+  DOTNET_SDK_VERSION: 6.0.x
+
+jobs:
+  build:
+    name: ${{ matrix.target-os == 'source' && 'generic' || matrix.target-os }}
+    runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+        target-os:
+          - source
+          - linux-arm64
+          - linux-x64
+          - win-x64
+
+    defaults:
+      run:
+        working-directory: ArchiSteamFarm
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Fetch tags from ArchiSteamFarm
+        run: |
+          git fetch --tags
+
+      - name: Setup variables
+        id: vars
+        run: echo "::set-output name=version::$(git describe --long)"
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_SDK_VERSION }}
+
+      - name: Show ArchiSteamFarm version
+        run: echo '${{ steps.vars.outputs.version }}'
+
+      - name: Show .NET information
+        run: dotnet --info
+
+      - name: Show Node.js version
+        run: node -v
+
+      - name: Show npm version
+        run: npm -v
+
+      - name: Setup git
+        run: |
+          git config --global user.email guihkx@users.noreply.github.com
+          git config --global user.name guihkx
+
+      - name: Apply patches
+        run: |
+          for patch_file in $(realpath ../patches/*.patch)
+          do
+              git am --reject "$patch_file"
+          done
+
+      - name: Deploy ASF-ui
+        working-directory: ArchiSteamFarm/ASF-ui
+        run: |
+          npm ci
+          npm run-script deploy
+
+      - name: Publish ArchiSteamFarm (${{ matrix.target-os == 'source' && 'generic' || matrix.target-os }})
+        env:
+          TARGET_OS: ${{ matrix.target-os }}
+        run: |
+          dotnet publish ArchiSteamFarm -c Release -o ../builds/$TARGET_OS ${{ matrix.target-os != 'source' && '-r $TARGET_OS -p:ASFVariant=$TARGET_OS -p:EnableCompressionInSingleFile=true -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true -p:SelfContained=true' || '--' }}
+
+      - name: Upload build artifacts (${{ matrix.target-os == 'source' && 'generic' || matrix.target-os }})
+        uses: actions/upload-artifact@v3
+        with:
+          name: ArchiSteamFarm_v${{ steps.vars.outputs.version }}-${{ matrix.target-os == 'source' && 'generic' || matrix.target-os }}
+          path: builds/${{ matrix.target-os }}
