@@ -37,7 +37,7 @@ jobs:
 
       - name: Fetch tags from ArchiSteamFarm
         run: |
-          git fetch --tags
+          git fetch --recurse-submodules=no --tags
 
       - name: Setup variables
         id: vars
