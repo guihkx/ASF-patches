@@ -39,7 +39,7 @@ jobs:
 
       - name: Setup variables
         id: vars
-        run: echo "::set-output name=version::$(git describe --long)"
+        run: echo "version=$(git describe --long)" >> $GITHUB_OUTPUT
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
