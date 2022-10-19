@@ -9,20 +9,25 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_NOLOGO: true
   DOTNET_SDK_VERSION: 6.0.x
+  DOTNET_TARGET_FRAMEWORK: net6.0
 
 jobs:
   build:
-    name: ${{ matrix.target-os == 'source' && 'generic' || matrix.target-os }}
-    runs-on: ubuntu-18.04
+    name: ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
       matrix:
-        target-os:
-          - source
-          - linux-arm64
-          - linux-x64
-          - win-x64
+        include:
+          - os: windows-2019
+            target: generic
+          - os: ubuntu-20.04
+            target: linux-arm64
+          - os: ubuntu-20.04
+            target: linux-x64
+          - os: windows-2019
+            target: win-x64
 
     defaults:
       run:
@@ -43,13 +48,13 @@ jobs:
         id: vars
         run: echo "version=$(git describe --long)" >> $GITHUB_OUTPUT
 
+      - name: Show ArchiSteamFarm version
+        run: echo '${{ steps.vars.outputs.version }}'
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_SDK_VERSION }}
-
-      - name: Show ArchiSteamFarm version
-        run: echo '${{ steps.vars.outputs.version }}'
 
       - name: Show .NET information
         run: dotnet --info
@@ -78,14 +83,14 @@ jobs:
           npm ci
           npm run-script deploy
 
-      - name: Publish ArchiSteamFarm (${{ matrix.target-os == 'source' && 'generic' || matrix.target-os }})
+      - name: Publish ArchiSteamFarm (${{ matrix.target }})
         env:
-          TARGET_OS: ${{ matrix.target-os }}
+          TARGET_OS: ${{ matrix.target == 'generic' && 'source' || matrix.target }}
         run: |
-          dotnet publish ArchiSteamFarm -c Release -o ../builds/$TARGET_OS ${{ matrix.target-os != 'source' && '-r $TARGET_OS -p:ASFVariant=$TARGET_OS -p:EnableCompressionInSingleFile=true -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true -p:SelfContained=true' || '--' }}
+          dotnet publish ArchiSteamFarm -c Release -f $DOTNET_TARGET_FRAMEWORK -o ../builds/${{ matrix.target }} ${{ matrix.target != 'generic' && '-r $TARGET_OS -p:ASFVariant=$TARGET_OS -p:EnableCompressionInSingleFile=true -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true -p:SelfContained=true' || '' }}
 
-      - name: Upload build artifacts (${{ matrix.target-os == 'source' && 'generic' || matrix.target-os }})
+      - name: Upload build artifacts (${{ matrix.target }})
         uses: actions/upload-artifact@v3
         with:
-          name: ArchiSteamFarm_v${{ steps.vars.outputs.version }}-${{ matrix.target-os == 'source' && 'generic' || matrix.target-os }}
-          path: builds/${{ matrix.target-os }}
+          name: ArchiSteamFarm_v${{ steps.vars.outputs.version }}-${{ matrix.target }}
+          path: builds/${{ matrix.target }}
