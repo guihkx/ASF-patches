@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: guihkx <626206+guihkx@users.noreply.github.com>
+Date: Mon, 10 Jul 2023 13:37:48 -0300
+Subject: Remove 25 minute login cooldown
+
+Works around an annoying issue I've been having while trying to log
+into Steam recently:
+
+2023-08-01 10:11:40|ArchiSteamFarm-851|INFO|1|Start() Starting...
+2023-08-01 10:11:42|ArchiSteamFarm-851|INFO|1|OnConnected() Connected to Steam!
+2023-08-01 10:11:42|ArchiSteamFarm-851|INFO|1|OnConnected() Logging in...
+2023-08-01 10:11:43|ArchiSteamFarm-851|WARN|1|OnConnected() SteamKit2.Authentication.AuthenticationException: Authentication failed with result AccountLoginDeniedThrottle.
+   at SteamKit2.Authentication.SteamAuthentication.BeginAuthSessionViaCredentialsAsync(AuthSessionDetails details)
+   at ArchiSteamFarm.Steam.Bot.OnConnected(ConnectedCallback callback)
+2023-08-01 10:11:43|ArchiSteamFarm-851|WARN|1|HandleLoginResult() Unable to login to Steam: AccountLoginDeniedThrottle/AccountLoginDeniedThrottle
+
+Retrying the login non-stop usually works, but the default 25 minute
+cooldown between each attempt makes this approach impractical, so
+remove it completely.
+---
+ ArchiSteamFarm/Steam/Bot.cs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/ArchiSteamFarm/Steam/Bot.cs b/ArchiSteamFarm/Steam/Bot.cs
+index 99f46fa5..3d776fb7 100644
+--- a/ArchiSteamFarm/Steam/Bot.cs
++++ b/ArchiSteamFarm/Steam/Bot.cs
+@@ -64,7 +64,7 @@ public sealed class Bot : IAsyncDisposable, IDisposable {
+ 	internal const byte MinCardsPerBadge = 5;
+ 
+ 	private const char DefaultBackgroundKeysRedeemerSeparator = '\t';
+-	private const byte LoginCooldownInMinutes = 25; // Captcha disappears after around 20 minutes, so we make it 25
++	private const byte LoginCooldownInMinutes = 0; // Captcha disappears after around 20 minutes, so we make it 25
+ 	private const uint LoginID = 1242; // This must be the same for all ASF bots and all ASF processes
+ 	private const byte MaxLoginFailures = WebBrowser.MaxTries; // Max login failures in a row before we determine that our credentials are invalid (because Steam wrongly returns those, of course)course)
+ 	private const byte RedeemCooldownInHours = 1; // 1 hour since first redeem attempt, this is a limitation enforced by Steam
+-- 
+2.37.3
+
