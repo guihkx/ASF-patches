@@ -11,6 +11,7 @@ env:
   DOTNET_NOLOGO: true
   DOTNET_SDK_VERSION: 7.0.x
   DOTNET_TARGET_FRAMEWORK: net7.0
+  PLUGINS: ArchiSteamFarm.OfficialPlugins.ItemsMatcher ArchiSteamFarm.OfficialPlugins.MobileAuthenticator
 
 jobs:
   pre_job:
@@ -103,7 +104,17 @@ jobs:
         env:
           TARGET_OS: ${{ matrix.target == 'generic' && 'source' || matrix.target }}
         run: |
-          dotnet publish ArchiSteamFarm -c Release -f $DOTNET_TARGET_FRAMEWORK -o ../builds/${{ matrix.target }} ${{ matrix.target != 'generic' && '-r $TARGET_OS -p:ASFVariant=$TARGET_OS -p:EnableCompressionInSingleFile=true -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true -p:SelfContained=true' || '' }}
+          dotnet publish ArchiSteamFarm -c Release -f ${{ env.DOTNET_TARGET_FRAMEWORK }} -o ../builds/${{ matrix.target }} -p:ContinuousIntegrationBuild=true --nologo ${{ matrix.target != 'generic' && '-r $TARGET_OS -p:ASFVariant=$TARGET_OS -p:PublishSingleFile=true -p:PublishTrimmed=true -p:SelfContained=true' || '-p:TargetLatestRuntimePatch=false -p:UseAppHost=false' }}
+
+      - name: Publish official plugins (${{ matrix.target }})
+        shell: bash
+        run: |
+          for plugin in ${{ env.PLUGINS }}
+          do
+              out_dir="../builds/${{ matrix.target }}/plugins/$plugin"
+              mkdir -p "$out_dir"
+              dotnet publish "$plugin" -c Release -f ${{ env.DOTNET_TARGET_FRAMEWORK }} -o "$out_dir" -p:ContinuousIntegrationBuild=true -p:TargetLatestRuntimePatch=false -p:UseAppHost=false --nologo
+          done
 
       - name: Upload build artifacts (${{ matrix.target }})
         uses: actions/upload-artifact@v3
