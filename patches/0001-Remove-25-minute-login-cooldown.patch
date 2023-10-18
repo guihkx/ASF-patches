@@ -22,10 +22,10 @@ remove it completely.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Steam/Bot.cs b/ArchiSteamFarm/Steam/Bot.cs
-index 0edea104..9d91d4f1 100644
+index eef99fb6..b29ce9e4 100644
 --- a/ArchiSteamFarm/Steam/Bot.cs
 +++ b/ArchiSteamFarm/Steam/Bot.cs
-@@ -64,7 +64,7 @@ public sealed class Bot : IAsyncDisposable, IDisposable {
+@@ -65,7 +65,7 @@ public sealed class Bot : IAsyncDisposable, IDisposable {
  	internal const byte MinCardsPerBadge = 5;
  
  	private const char DefaultBackgroundKeysRedeemerSeparator = '\t';
