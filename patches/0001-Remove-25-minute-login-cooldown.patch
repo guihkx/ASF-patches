@@ -22,7 +22,7 @@ remove it completely.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Steam/Bot.cs b/ArchiSteamFarm/Steam/Bot.cs
-index eef99fb6..b29ce9e4 100644
+index 2b18e1ca..dd94395f 100644
 --- a/ArchiSteamFarm/Steam/Bot.cs
 +++ b/ArchiSteamFarm/Steam/Bot.cs
 @@ -65,7 +65,7 @@ public sealed class Bot : IAsyncDisposable, IDisposable {
@@ -30,10 +30,10 @@ index eef99fb6..b29ce9e4 100644
  
  	private const char DefaultBackgroundKeysRedeemerSeparator = '\t';
 -	private const byte LoginCooldownInMinutes = 25; // Captcha disappears after around 20 minutes, so we make it 25
-+	private const byte LoginCooldownInMinutes = 0; // Captcha disappears after around 20 minutes, so we make it 25
++	private const byte LoginCooldownInMinutes = 0;
  	private const uint LoginID = 1242; // This must be the same for all ASF bots and all ASF processes
  	private const byte MaxLoginFailures = WebBrowser.MaxTries; // Max login failures in a row before we determine that our credentials are invalid (because Steam wrongly returns those, of course)course)
- 	private const byte RedeemCooldownInHours = 1; // 1 hour since first redeem attempt, this is a limitation enforced by Steam
+ 	private const byte MinimumAccessTokenValidityMinutes = 10;
 -- 
 2.42.0
 
