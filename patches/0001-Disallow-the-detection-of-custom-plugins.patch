@@ -1,0 +1,25 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: guihkx <626206+guihkx@users.noreply.github.com>
+Date: Fri, 15 Dec 2023 12:29:55 -0300
+Subject: Disallow the detection of custom plugins
+
+---
+ ArchiSteamFarm/Plugins/PluginsCore.cs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/ArchiSteamFarm/Plugins/PluginsCore.cs b/ArchiSteamFarm/Plugins/PluginsCore.cs
+index 3a716984..5993ccc3 100644
+--- a/ArchiSteamFarm/Plugins/PluginsCore.cs
++++ b/ArchiSteamFarm/Plugins/PluginsCore.cs
+@@ -49,7 +49,7 @@
+ namespace ArchiSteamFarm.Plugins;
+ 
+ public static class PluginsCore {
+-	internal static bool HasCustomPluginsLoaded => ActivePlugins?.Any(static plugin => plugin is not OfficialPlugin officialPlugin || !officialPlugin.HasSameVersion()) == true;
++	internal static bool HasCustomPluginsLoaded => false;
+ 
+ 	[ImportMany]
+ 	internal static ImmutableHashSet<IPlugin>? ActivePlugins { get; private set; }
+-- 
+2.43.0
+

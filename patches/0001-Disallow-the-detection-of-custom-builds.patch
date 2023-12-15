@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: guihkx <626206+guihkx@users.noreply.github.com>
+Date: Fri, 15 Dec 2023 12:39:02 -0300
+Subject: Disallow the detection of custom builds
+
+---
+ ArchiSteamFarm/SharedInfo.cs | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/ArchiSteamFarm/SharedInfo.cs b/ArchiSteamFarm/SharedInfo.cs
+index 275878d0..d826e42c 100644
+--- a/ArchiSteamFarm/SharedInfo.cs
++++ b/ArchiSteamFarm/SharedInfo.cs
+@@ -132,11 +132,9 @@ internal static class BuildInfo {
+ 		internal static string Variant => "win-x64";
+ #else
+ 		internal static bool CanUpdate => false;
+-		internal static string Variant => SourceVariant;
++		internal static string Variant => "source";
+ #endif
+ 
+-		private const string SourceVariant = "source";
+-
+-		internal static bool IsCustomBuild => Variant == SourceVariant;
++		internal static bool IsCustomBuild => false;
+ 	}
+ }
+-- 
+2.43.0
+
