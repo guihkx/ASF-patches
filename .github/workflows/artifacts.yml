@@ -10,7 +10,6 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_NOLOGO: true
   DOTNET_SDK_VERSION: 8.0.x
-  DOTNET_TARGET_FRAMEWORK: net8.0
   PLUGINS: ArchiSteamFarm.OfficialPlugins.ItemsMatcher ArchiSteamFarm.OfficialPlugins.MobileAuthenticator
 
 jobs:
@@ -104,7 +103,7 @@ jobs:
         env:
           TARGET_OS: ${{ matrix.target == 'generic' && 'source' || matrix.target }}
         run: |
-          dotnet publish ArchiSteamFarm -c Release -f ${{ env.DOTNET_TARGET_FRAMEWORK }} -o ../builds/${{ matrix.target }} -p:ContinuousIntegrationBuild=true --nologo ${{ matrix.target != 'generic' && '-r $TARGET_OS -p:ASFVariant=$TARGET_OS -p:PublishSingleFile=true -p:PublishTrimmed=true -p:SelfContained=true' || '-p:TargetLatestRuntimePatch=false -p:UseAppHost=false' }}
+          dotnet publish ArchiSteamFarm -c Release -o ../builds/${{ matrix.target }} -p:ContinuousIntegrationBuild=true --nologo ${{ matrix.target != 'generic' && '-r $TARGET_OS -p:ASFVariant=$TARGET_OS -p:PublishSingleFile=true -p:PublishTrimmed=true -p:SelfContained=true' || '-p:TargetLatestRuntimePatch=false -p:UseAppHost=false' }}
 
       - name: Publish official plugins (${{ matrix.target }})
         shell: bash
@@ -113,7 +112,7 @@ jobs:
           do
               out_dir="../builds/${{ matrix.target }}/plugins/$plugin"
               mkdir -p "$out_dir"
-              dotnet publish "$plugin" -c Release -f ${{ env.DOTNET_TARGET_FRAMEWORK }} -o "$out_dir" -p:ContinuousIntegrationBuild=true -p:TargetLatestRuntimePatch=false -p:UseAppHost=false --nologo
+              dotnet publish "$plugin" -c Release -o "$out_dir" -p:ContinuousIntegrationBuild=true -p:TargetLatestRuntimePatch=false -p:UseAppHost=false --nologo
           done
 
       - name: Upload build artifacts (${{ matrix.target }})
