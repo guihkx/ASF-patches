@@ -8,7 +8,7 @@ Subject: Lower AutoSteamSaleEvent interval from 8 to 3 hours
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Steam/Integration/SteamSaleEvent.cs b/ArchiSteamFarm/Steam/Integration/SteamSaleEvent.cs
-index 0c797cdd..672e7591 100644
+index b8d978e2..c9de71f0 100644
 --- a/ArchiSteamFarm/Steam/Integration/SteamSaleEvent.cs
 +++ b/ArchiSteamFarm/Steam/Integration/SteamSaleEvent.cs
 @@ -45,7 +45,7 @@ internal sealed class SteamSaleEvent : IAsyncDisposable, IDisposable {

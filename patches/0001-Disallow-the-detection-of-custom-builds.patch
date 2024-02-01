@@ -8,7 +8,7 @@ Subject: Disallow the detection of custom builds
  1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/ArchiSteamFarm/SharedInfo.cs b/ArchiSteamFarm/SharedInfo.cs
-index 275878d0..d826e42c 100644
+index bc5c6abf..75f3df86 100644
 --- a/ArchiSteamFarm/SharedInfo.cs
 +++ b/ArchiSteamFarm/SharedInfo.cs
 @@ -132,11 +132,9 @@ internal static class BuildInfo {

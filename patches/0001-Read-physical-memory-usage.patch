@@ -9,7 +9,7 @@ Subject: Read physical memory usage
  2 files changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
-index 8af8ebef..eab9687c 100644
+index 474a9785..69710242 100644
 --- a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
 +++ b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
 @@ -21,6 +21,7 @@
@@ -30,7 +30,7 @@ index 8af8ebef..eab9687c 100644
  		ASFResponse result = new(SharedInfo.BuildInfo.Variant, SharedInfo.BuildInfo.CanUpdate, ASF.GlobalConfig, memoryUsage, OS.ProcessStartTime, SharedInfo.Version);
  
 diff --git a/ArchiSteamFarm/Steam/Interaction/Commands.cs b/ArchiSteamFarm/Steam/Interaction/Commands.cs
-index b2dd843a..58825ff7 100644
+index 4cca8be2..48299eee 100644
 --- a/ArchiSteamFarm/Steam/Interaction/Commands.cs
 +++ b/ArchiSteamFarm/Steam/Interaction/Commands.cs
 @@ -22,6 +22,7 @@
@@ -41,7 +41,7 @@ index b2dd843a..58825ff7 100644
  using System.Globalization;
  using System.Linq;
  using System.Net.Http;
-@@ -2657,7 +2658,7 @@ public sealed class Commands {
+@@ -2659,7 +2660,7 @@ public sealed class Commands {
  			return null;
  		}
  
