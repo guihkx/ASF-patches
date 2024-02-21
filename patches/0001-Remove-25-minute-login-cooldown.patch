@@ -22,7 +22,7 @@ remove it completely.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Steam/Bot.cs b/ArchiSteamFarm/Steam/Bot.cs
-index 175f9a4e..f812873a 100644
+index a15743d9..f696999c 100644
 --- a/ArchiSteamFarm/Steam/Bot.cs
 +++ b/ArchiSteamFarm/Steam/Bot.cs
 @@ -65,7 +65,7 @@ public sealed class Bot : IAsyncDisposable, IDisposable {
@@ -35,5 +35,5 @@ index 175f9a4e..f812873a 100644
  	private const byte MaxLoginFailures = WebBrowser.MaxTries; // Max login failures in a row before we determine that our credentials are invalid (because Steam wrongly returns those, of course)course)
  	private const byte MinimumAccessTokenValidityMinutes = 5;
 -- 
-2.43.0
+2.43.2
 

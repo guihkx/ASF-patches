@@ -8,10 +8,10 @@ Subject: Disallow the detection of custom builds
  1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/ArchiSteamFarm/SharedInfo.cs b/ArchiSteamFarm/SharedInfo.cs
-index bc5c6abf..75f3df86 100644
+index 6045dc1c..cd997df6 100644
 --- a/ArchiSteamFarm/SharedInfo.cs
 +++ b/ArchiSteamFarm/SharedInfo.cs
-@@ -132,11 +132,9 @@ internal static class BuildInfo {
+@@ -133,11 +133,9 @@ internal static class BuildInfo {
  		internal static string Variant => "win-x64";
  #else
  		internal static bool CanUpdate => false;
@@ -26,5 +26,5 @@ index bc5c6abf..75f3df86 100644
  	}
  }
 -- 
-2.43.0
+2.43.2
 
