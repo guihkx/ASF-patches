@@ -9,7 +9,7 @@ Subject: Read physical memory usage
  2 files changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
-index 474a9785..69710242 100644
+index e45cbe23..287b1793 100644
 --- a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
 +++ b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
 @@ -21,6 +21,7 @@
@@ -30,7 +30,7 @@ index 474a9785..69710242 100644
  		ASFResponse result = new(SharedInfo.BuildInfo.Variant, SharedInfo.BuildInfo.CanUpdate, ASF.GlobalConfig, memoryUsage, OS.ProcessStartTime, SharedInfo.Version);
  
 diff --git a/ArchiSteamFarm/Steam/Interaction/Commands.cs b/ArchiSteamFarm/Steam/Interaction/Commands.cs
-index 4cca8be2..48299eee 100644
+index a2ffba16..ab613e95 100644
 --- a/ArchiSteamFarm/Steam/Interaction/Commands.cs
 +++ b/ArchiSteamFarm/Steam/Interaction/Commands.cs
 @@ -22,6 +22,7 @@
@@ -41,7 +41,7 @@ index 4cca8be2..48299eee 100644
  using System.Globalization;
  using System.Linq;
  using System.Net.Http;
-@@ -2659,7 +2660,7 @@ public sealed class Commands {
+@@ -2661,7 +2662,7 @@ public sealed class Commands {
  			return null;
  		}
  
@@ -51,5 +51,5 @@ index 4cca8be2..48299eee 100644
  
  		return FormatBotResponse(string.Format(CultureInfo.CurrentCulture, Strings.BotStats, memoryInMegabytes, uptime.ToHumanReadable()));
 -- 
-2.43.2
+2.44.0
 

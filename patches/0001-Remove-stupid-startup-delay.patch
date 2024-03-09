@@ -8,10 +8,10 @@ Subject: Remove stupid startup delay
  1 file changed, 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Core/ASF.cs b/ArchiSteamFarm/Core/ASF.cs
-index 4ed6fd37..ee6dde5b 100644
+index 2a1d4e1e..ce43d633 100644
 --- a/ArchiSteamFarm/Core/ASF.cs
 +++ b/ArchiSteamFarm/Core/ASF.cs
-@@ -897,7 +897,6 @@ public static class ASF {
+@@ -902,7 +902,6 @@ public static class ASF {
  				return;
  			case > MaximumRecommendedBotsCount:
  				ArchiLogger.LogGenericWarning(string.Format(CultureInfo.CurrentCulture, Strings.WarningExcessiveBotsCount, MaximumRecommendedBotsCount));
@@ -20,5 +20,5 @@ index 4ed6fd37..ee6dde5b 100644
  				break;
  		}
 -- 
-2.43.2
+2.44.0
 
