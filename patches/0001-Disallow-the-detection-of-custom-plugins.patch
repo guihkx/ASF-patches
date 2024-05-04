@@ -8,7 +8,7 @@ Subject: Disallow the detection of custom plugins
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Plugins/PluginsCore.cs b/ArchiSteamFarm/Plugins/PluginsCore.cs
-index e91b1665..b914707a 100644
+index a56e9b456..0230b3454 100644
 --- a/ArchiSteamFarm/Plugins/PluginsCore.cs
 +++ b/ArchiSteamFarm/Plugins/PluginsCore.cs
 @@ -58,7 +58,7 @@ public static class PluginsCore {
@@ -21,5 +21,5 @@ index e91b1665..b914707a 100644
  	[ImportMany]
  	internal static FrozenSet<IPlugin> ActivePlugins { get; private set; } = FrozenSet<IPlugin>.Empty;
 -- 
-2.44.0
+2.45.0
 

@@ -9,7 +9,7 @@ Subject: Read physical memory usage
  2 files changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
-index a1092e03..dd100619 100644
+index a1092e036..dd1006196 100644
 --- a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
 +++ b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
 @@ -23,6 +23,7 @@
@@ -20,7 +20,7 @@ index a1092e03..dd100619 100644
  using System.Globalization;
  using System.Linq;
  using System.Net;
-@@ -69,7 +70,7 @@ public sealed class ASFController : ArchiController {
+@@ -69,7 +70,7 @@ public ActionResult<GenericResponse<ASFResponse>> ASFGet() {
  			throw new InvalidOperationException(nameof(ASF.GlobalConfig));
  		}
  
@@ -30,7 +30,7 @@ index a1092e03..dd100619 100644
  		ASFResponse result = new(SharedInfo.BuildInfo.Variant, SharedInfo.BuildInfo.CanUpdate, ASF.GlobalConfig, memoryUsage, OS.ProcessStartTime, SharedInfo.Version);
  
 diff --git a/ArchiSteamFarm/Steam/Interaction/Commands.cs b/ArchiSteamFarm/Steam/Interaction/Commands.cs
-index 4eb5855d..ce7a49f5 100644
+index fa967629f..7437b1616 100644
 --- a/ArchiSteamFarm/Steam/Interaction/Commands.cs
 +++ b/ArchiSteamFarm/Steam/Interaction/Commands.cs
 @@ -24,6 +24,7 @@
@@ -41,7 +41,7 @@ index 4eb5855d..ce7a49f5 100644
  using System.Globalization;
  using System.Linq;
  using System.Text;
-@@ -2666,7 +2667,7 @@ public sealed class Commands {
+@@ -2666,7 +2667,7 @@ internal void OnNewLicenseList() {
  			return null;
  		}
  
@@ -51,5 +51,5 @@ index 4eb5855d..ce7a49f5 100644
  
  		return FormatBotResponse(string.Format(CultureInfo.CurrentCulture, Strings.BotStats, memoryInMegabytes, uptime.ToHumanReadable()));
 -- 
-2.44.0
+2.45.0
 
