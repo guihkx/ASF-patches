@@ -21,5 +21,5 @@ index a56e9b456..0230b3454 100644
  	[ImportMany]
  	internal static FrozenSet<IPlugin> ActivePlugins { get; private set; } = FrozenSet<IPlugin>.Empty;
 -- 
-2.45.0
+2.45.2
 
