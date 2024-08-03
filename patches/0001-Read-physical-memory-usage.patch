@@ -51,5 +51,5 @@ index d2669a10d..61e788f82 100644
  
  		return FormatBotResponse(string.Format(CultureInfo.CurrentCulture, Strings.BotStats, memoryInMegabytes, uptime.ToHumanReadable()));
 -- 
-2.45.2
+2.46.0
 
