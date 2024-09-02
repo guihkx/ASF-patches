@@ -4,21 +4,46 @@ Date: Sun, 24 Feb 2019 16:53:17 -0300
 Subject: Remove stupid startup delay
 
 ---
- ArchiSteamFarm/Core/ASF.cs | 1 -
- 1 file changed, 1 deletion(-)
+ ArchiSteamFarm/Core/ASF.cs | 12 ------------
+ 1 file changed, 12 deletions(-)
 
 diff --git a/ArchiSteamFarm/Core/ASF.cs b/ArchiSteamFarm/Core/ASF.cs
-index 9d4b3ae56..6af72c34f 100644
+index 2092dea94..12c53e324 100644
 --- a/ArchiSteamFarm/Core/ASF.cs
 +++ b/ArchiSteamFarm/Core/ASF.cs
-@@ -709,7 +709,6 @@ private static async Task RegisterBots() {
- 				return;
- 			case > MaximumRecommendedBotsCount:
- 				ArchiLogger.LogGenericWarning(string.Format(CultureInfo.CurrentCulture, Strings.WarningExcessiveBotsCount, MaximumRecommendedBotsCount));
--				await Task.Delay(SharedInfo.InformationDelay).ConfigureAwait(false);
+@@ -53,9 +53,6 @@
+ namespace ArchiSteamFarm.Core;
  
- 				break;
+ public static class ASF {
+-	// This is based on internal Valve guidelines, we're not using it as a hard limit
+-	private const byte MaximumRecommendedBotsCount = 10;
+-
+ 	[PublicAPI]
+ 	public static readonly ArchiLogger ArchiLogger = new(SharedInfo.ASF);
+ 
+@@ -491,10 +488,6 @@ private static async Task OnCreatedJsonFile(string name, string fullPath) {
+ 			await bot.OnConfigChanged(false).ConfigureAwait(false);
+ 		} else {
+ 			await Bot.RegisterBot(botName).ConfigureAwait(false);
+-
+-			if (Bot.Bots.Count > MaximumRecommendedBotsCount) {
+-				ArchiLogger.LogGenericWarning(Strings.FormatWarningExcessiveBotsCount(MaximumRecommendedBotsCount));
+-			}
  		}
+ 	}
+ 
+@@ -707,11 +700,6 @@ private static async Task RegisterBots() {
+ 				ArchiLogger.LogGenericWarning(Strings.ErrorNoBotsDefined);
+ 
+ 				return;
+-			case > MaximumRecommendedBotsCount:
+-				ArchiLogger.LogGenericWarning(Strings.FormatWarningExcessiveBotsCount(MaximumRecommendedBotsCount));
+-				await Task.Delay(SharedInfo.InformationDelay).ConfigureAwait(false);
+-
+-				break;
+ 		}
+ 
+ 		await Utilities.InParallel(botNames.OrderBy(static botName => botName, Bot.BotsComparer).Select(Bot.RegisterBot)).ConfigureAwait(false);
 -- 
 2.46.0
 

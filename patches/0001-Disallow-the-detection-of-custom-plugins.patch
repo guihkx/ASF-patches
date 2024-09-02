@@ -8,13 +8,13 @@ Subject: Disallow the detection of custom plugins
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Plugins/PluginsCore.cs b/ArchiSteamFarm/Plugins/PluginsCore.cs
-index 219073184..f001678c8 100644
+index b248b7916..0d0b8fd88 100644
 --- a/ArchiSteamFarm/Plugins/PluginsCore.cs
 +++ b/ArchiSteamFarm/Plugins/PluginsCore.cs
-@@ -59,7 +59,7 @@ public static class PluginsCore {
- 	[PublicAPI]
- 	public static int ActivePluginsCount => ActivePlugins.Count;
+@@ -54,7 +54,7 @@
+ namespace ArchiSteamFarm.Plugins;
  
+ public static class PluginsCore {
 -	internal static bool HasCustomPluginsLoaded => ActivePlugins.Any(static plugin => plugin is not OfficialPlugin officialPlugin || !officialPlugin.HasSameVersion());
 +	internal static bool HasCustomPluginsLoaded => false;
  
