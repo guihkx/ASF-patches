@@ -4,27 +4,31 @@ Date: Fri, 15 Dec 2023 12:39:02 -0300
 Subject: Disallow the detection of custom builds
 
 ---
- ArchiSteamFarm/SharedInfo.cs | 6 ++----
+ ArchiSteamFarm/Core/BuildInfo.cs | 6 ++----
  1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/ArchiSteamFarm/SharedInfo.cs b/ArchiSteamFarm/SharedInfo.cs
-index 06d2b8f00..f80173a74 100644
---- a/ArchiSteamFarm/SharedInfo.cs
-+++ b/ArchiSteamFarm/SharedInfo.cs
-@@ -140,11 +140,9 @@ internal static class BuildInfo {
- 		internal static string Variant => "win-x64";
+diff --git a/ArchiSteamFarm/Core/BuildInfo.cs b/ArchiSteamFarm/Core/BuildInfo.cs
+index afbe3412e..fdcd3bd94 100644
+--- a/ArchiSteamFarm/Core/BuildInfo.cs
++++ b/ArchiSteamFarm/Core/BuildInfo.cs
+@@ -53,7 +53,7 @@ internal static class BuildInfo {
+ 	internal static string Variant => "win-x64";
  #else
- 		internal static bool CanUpdate => false;
--		internal static string Variant => SourceVariant;
-+		internal static string Variant => "source";
+ 	internal static bool CanUpdate => false;
+-	internal static string Variant => SourceVariant;
++	internal static string Variant => "source";
  #endif
  
--		private const string SourceVariant = "source";
+ #if ASF_RUNTIME_TRIMMED
+@@ -62,7 +62,5 @@ internal static class BuildInfo {
+ 	internal static bool IsRuntimeTrimmed => false;
+ #endif
+ 
+-	private const string SourceVariant = "source";
 -
--		internal static bool IsCustomBuild => Variant == SourceVariant;
-+		internal static bool IsCustomBuild => false;
- 	}
+-	internal static bool IsCustomBuild => Variant == SourceVariant;
++	internal static bool IsCustomBuild => false;
  }
 -- 
-2.46.0
+2.46.2
 
