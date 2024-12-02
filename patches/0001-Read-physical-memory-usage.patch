@@ -30,7 +30,7 @@ index 7474f6aba..4b02ba893 100644
  		ASFResponse result = new(BuildInfo.Variant, BuildInfo.CanUpdate, ASF.GlobalConfig, memoryUsage, OS.ProcessStartTime, SharedInfo.Version);
  
 diff --git a/ArchiSteamFarm/Steam/Interaction/Commands.cs b/ArchiSteamFarm/Steam/Interaction/Commands.cs
-index f9b4a6394..18474b2e5 100644
+index f293106f8..28103d57f 100644
 --- a/ArchiSteamFarm/Steam/Interaction/Commands.cs
 +++ b/ArchiSteamFarm/Steam/Interaction/Commands.cs
 @@ -24,6 +24,7 @@
@@ -41,7 +41,7 @@ index f9b4a6394..18474b2e5 100644
  using System.Globalization;
  using System.Linq;
  using System.Text;
-@@ -2981,7 +2982,7 @@ internal void OnNewLicenseList() {
+@@ -3015,7 +3016,7 @@ internal void OnNewLicenseList() {
  			return null;
  		}
  
@@ -51,5 +51,5 @@ index f9b4a6394..18474b2e5 100644
  
  		return FormatBotResponse(Strings.FormatBotStats(memoryInMegabytes, uptime.ToHumanReadable()));
 -- 
-2.47.0
+2.47.1
 
