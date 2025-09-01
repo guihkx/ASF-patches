@@ -8,7 +8,7 @@ Subject: Remove stupid startup delay
  1 file changed, 12 deletions(-)
 
 diff --git a/ArchiSteamFarm/Core/ASF.cs b/ArchiSteamFarm/Core/ASF.cs
-index 173b4973a..256048e71 100644
+index 7f6e3957a..b367d9be1 100644
 --- a/ArchiSteamFarm/Core/ASF.cs
 +++ b/ArchiSteamFarm/Core/ASF.cs
 @@ -53,9 +53,6 @@
@@ -45,5 +45,5 @@ index 173b4973a..256048e71 100644
  
  		await Utilities.InParallel(botNames.OrderBy(static botName => botName, Bot.BotsComparer).Select(Bot.RegisterBot)).ConfigureAwait(false);
 -- 
-2.50.1
+2.51.0
 

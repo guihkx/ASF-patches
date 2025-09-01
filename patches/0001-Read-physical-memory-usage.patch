@@ -51,5 +51,5 @@ index 85c21b7a6..392418cc8 100644
  
  		return FormatBotResponse(Strings.FormatBotStats(memoryInMegabytes, uptime.ToHumanReadable()));
 -- 
-2.50.1
+2.51.0
 
