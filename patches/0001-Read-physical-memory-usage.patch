@@ -30,7 +30,7 @@ index 51e6f8d4d..52fc994da 100644
  		ASFResponse result = new(BuildInfo.Variant, BuildInfo.CanUpdate, ASF.GlobalConfig, memoryUsage, OS.ProcessStartTime, SharedInfo.Version);
  
 diff --git a/ArchiSteamFarm/Steam/Interaction/Commands.cs b/ArchiSteamFarm/Steam/Interaction/Commands.cs
-index 85c21b7a6..392418cc8 100644
+index d44ae7489..ba7c6ead2 100644
 --- a/ArchiSteamFarm/Steam/Interaction/Commands.cs
 +++ b/ArchiSteamFarm/Steam/Interaction/Commands.cs
 @@ -25,6 +25,7 @@

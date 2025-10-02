@@ -22,7 +22,7 @@ remove it completely.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Steam/Bot.cs b/ArchiSteamFarm/Steam/Bot.cs
-index 90a1033d2..1d5a83c94 100644
+index 704d771f8..c21811e61 100644
 --- a/ArchiSteamFarm/Steam/Bot.cs
 +++ b/ArchiSteamFarm/Steam/Bot.cs
 @@ -71,7 +71,7 @@ public sealed class Bot : IAsyncDisposable, IDisposable {
