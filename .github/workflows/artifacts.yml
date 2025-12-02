@@ -116,7 +116,7 @@ jobs:
           done
 
       - name: Upload build artifacts (${{ matrix.target }})
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ArchiSteamFarm_v${{ steps.vars.outputs.version }}-${{ matrix.target }}
           path: builds/${{ matrix.target }}
