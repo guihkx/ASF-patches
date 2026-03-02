@@ -9,7 +9,7 @@ Subject: Read physical memory usage
  2 files changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
-index 51e6f8d4d..52fc994da 100644
+index fdbe39d6c..ccefb0be5 100644
 --- a/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
 +++ b/ArchiSteamFarm/IPC/Controllers/Api/ASFController.cs
 @@ -23,6 +23,7 @@
@@ -30,7 +30,7 @@ index 51e6f8d4d..52fc994da 100644
  		ASFResponse result = new(BuildInfo.Variant, BuildInfo.CanUpdate, ASF.GlobalConfig, memoryUsage, OS.ProcessStartTime, SharedInfo.Version);
  
 diff --git a/ArchiSteamFarm/Steam/Interaction/Commands.cs b/ArchiSteamFarm/Steam/Interaction/Commands.cs
-index ad638e052..ab5927e0f 100644
+index bce1a57f8..9da20ccf4 100644
 --- a/ArchiSteamFarm/Steam/Interaction/Commands.cs
 +++ b/ArchiSteamFarm/Steam/Interaction/Commands.cs
 @@ -25,6 +25,7 @@
@@ -41,7 +41,7 @@ index ad638e052..ab5927e0f 100644
  using System.Globalization;
  using System.Linq;
  using System.Text;
-@@ -3234,7 +3235,7 @@ internal void OnNewLicenseList() {
+@@ -3232,7 +3233,7 @@ internal void OnNewLicenseList() {
  			return null;
  		}
  
@@ -51,5 +51,5 @@ index ad638e052..ab5927e0f 100644
  
  		return FormatBotResponse(Strings.FormatBotStats(memoryInMegabytes, uptime.ToHumanReadable()));
 -- 
-2.52.0
+2.53.0
 
