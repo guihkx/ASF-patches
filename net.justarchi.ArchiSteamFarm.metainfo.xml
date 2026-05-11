@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>net.justarchi.ArchiSteamFarm</id>
+  <launchable type="desktop-id">net.justarchi.ArchiSteamFarm.desktop</launchable>
+  <name>ArchiSteamFarm</name>
+  <developer id="net.justarchi">
+    <name>Łukasz Domeradzki</name>
+  </developer>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Apache-2.0</project_license>
+  <url type="homepage">https://github.com/JustArchiNET/ArchiSteamFarm</url>
+  <url type="help">https://github.com/JustArchiNET/ArchiSteamFarm/blob/main/.github/SUPPORT.md</url>
+  <url type="bugtracker">https://github.com/JustArchiNET/ArchiSteamFarm/issues</url>
+  <summary>Steam idler and cards farmer</summary>
+  <description>
+    <p>
+      ASF is a C# application with primary purpose of farming Steam cards from multiple accounts simultaneously. Unlike Idle Master which works only for one account at given time, while requiring Steam client running in the background and launching additional processes imitating &quot;game playing&quot; status, ASF doesn&apos;t require any Steam client running in the background, doesn&apos;t launch any additional processes and is made to handle unlimited Steam accounts at once. In addition to that, it&apos;s meant to be run on servers or other desktop-less machines, and features full cross-OS support, which makes it possible to launch on any operating system with .NET Core runtime, such as Windows, Linux and macOS. ASF is possible thanks to gigantic amount of work done in marvelous SteamKit2 library.
+    </p>
+    <p>
+      Today, ASF is one of the most versatile Steam power tools, allowing you to make use of many features that were implemented over time. Apart from farming Steam cards, which remains the primary focus, ASF includes bunch of features on its own, such as a possibility to use it as Steam authenticator or chat logger. In addition to that, ASF includes plugin system, thanks to which anybody can further extend it to their needs.
+    </p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image type="source">https://github.com/JustArchiNET/ASF-ui/blob/2362ebba3f82bc1c58c86d4b4103847bdaf91502/.github/previews/commands.png</image>
+      <caption>Web interface for ArchiSteamFarm (ASF-ui) displaying a command prompt</caption>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1" />
+  <icon type="stock">net.justarchi.ArchiSteamFarm</icon>
+  <categories>
+    <category>Network</category>
+    <category>Amusement</category>
+  </categories>
+  <provides>
+    <binary>ArchiSteamFarm</binary>
+  </provides>
+  <releases>
+    <release version="6.3.5.1" date="2026-04-25">
+      <description/>
+    </release>
+  </releases>
+</component>

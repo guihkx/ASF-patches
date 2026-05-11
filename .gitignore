@@ -1,1 +1,5 @@
 builds/
+.flatpak-builder/
+builddir/
+repo/
+*.flatpak
