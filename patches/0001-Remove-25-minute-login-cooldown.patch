@@ -35,5 +35,5 @@ index 77bc1a02f..f4c1280b8 100644
  	private const byte MaxLoginFailures = 3; // Max login failures in a row before we determine that our credentials are invalid (because Steam wrongly returns those, of course)
  	private const byte MinimumAccessTokenValidityMinutes = 5;
 -- 
-2.53.0
+2.54.0
 
