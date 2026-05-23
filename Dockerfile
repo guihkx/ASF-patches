@@ -1,0 +1,126 @@
+ARG IMAGESUFFIX
+
+FROM --platform=$BUILDPLATFORM node:lts${IMAGESUFFIX} AS build-node
+WORKDIR /app/ASF-ui
+COPY --link ArchiSteamFarm/ASF-ui .
+
+RUN <<EOF
+    set -eu
+
+    echo "node: $(node --version)"
+    echo "npm: $(npm --version)"
+
+    npm ci --no-progress
+    npm run deploy --no-progress
+EOF
+
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0${IMAGESUFFIX} AS build-dotnet
+ARG CONFIGURATION=Release
+ARG TARGETARCH
+ARG TARGETOS
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
+ENV DOTNET_NOLOGO=true
+ENV PLUGINS_BUNDLED="ArchiSteamFarm.OfficialPlugins.ItemsMatcher ArchiSteamFarm.OfficialPlugins.MobileAuthenticator ArchiSteamFarm.OfficialPlugins.SteamTokenDumper"
+WORKDIR /app
+COPY --from=build-node --link /app/ASF-ui/dist ASF-ui/dist
+COPY --link ArchiSteamFarm/ArchiSteamFarm ArchiSteamFarm
+COPY --link ArchiSteamFarm/ArchiSteamFarm.OfficialPlugins.ItemsMatcher ArchiSteamFarm.OfficialPlugins.ItemsMatcher
+COPY --link ArchiSteamFarm/ArchiSteamFarm.OfficialPlugins.MobileAuthenticator ArchiSteamFarm.OfficialPlugins.MobileAuthenticator
+COPY --link ArchiSteamFarm/ArchiSteamFarm.OfficialPlugins.SteamTokenDumper ArchiSteamFarm.OfficialPlugins.SteamTokenDumper
+COPY --link ArchiSteamFarm/resources resources
+COPY --link ArchiSteamFarm/.editorconfig .editorconfig
+COPY --link ArchiSteamFarm/Directory.Build.props Directory.Build.props
+COPY --link ArchiSteamFarm/Directory.Packages.props Directory.Packages.props
+COPY --link ArchiSteamFarm/LICENSE.txt LICENSE.txt
+COPY --link patches patches
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends patch \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN --mount=type=secret,id=ASF_PRIVATE_SNK --mount=type=secret,id=STEAM_TOKEN_DUMPER_TOKEN <<EOF
+    set -eu
+
+    dotnet --info
+
+    case "$TARGETOS" in
+        "linux") ;;
+        *) echo "ERROR: Unsupported OS: ${TARGETOS}"; exit 1 ;;
+    esac
+
+    case "$TARGETARCH" in
+        "amd64") asf_variant="${TARGETOS}-x64" ;;
+        "arm") asf_variant="${TARGETOS}-${TARGETARCH}" ;;
+        "arm64") asf_variant="${TARGETOS}-${TARGETARCH}" ;;
+        *) echo "ERROR: Unsupported CPU architecture: ${TARGETARCH}"; exit 1 ;;
+    esac
+
+    if [ -f "/run/secrets/ASF_PRIVATE_SNK" ]; then
+        base64 -d "/run/secrets/ASF_PRIVATE_SNK" > "resources/ArchiSteamFarm.snk"
+    else
+        echo "WARN: No ASF_PRIVATE_SNK provided!"
+    fi
+
+    if ls patches/*.patch >/dev/null 2>&1; then
+      for patch_file in patches/*.patch; do
+        patch -p1 < "$patch_file"
+      done
+    fi
+
+    dotnet publish ArchiSteamFarm -c "$CONFIGURATION" -o "out" -p:ASFVariant=docker -p:ContinuousIntegrationBuild=true -p:UseAppHost=false -r "$asf_variant" --nologo --no-self-contained
+
+    if [ -f "/run/secrets/STEAM_TOKEN_DUMPER_TOKEN" ]; then
+        STEAM_TOKEN_DUMPER_TOKEN="$(cat "/run/secrets/STEAM_TOKEN_DUMPER_TOKEN")"
+
+        if [ -n "$STEAM_TOKEN_DUMPER_TOKEN" ] && [ -f "ArchiSteamFarm.OfficialPlugins.SteamTokenDumper/SharedInfo.cs" ]; then
+            sed -i "s/STEAM_TOKEN_DUMPER_TOKEN/${STEAM_TOKEN_DUMPER_TOKEN}/g" "ArchiSteamFarm.OfficialPlugins.SteamTokenDumper/SharedInfo.cs"
+        else
+            echo "WARN: STEAM_TOKEN_DUMPER_TOKEN not applied!"
+        fi
+    else
+        echo "WARN: No STEAM_TOKEN_DUMPER_TOKEN provided!"
+    fi
+
+    for plugin in $PLUGINS_BUNDLED; do
+        dotnet publish "$plugin" -c "$CONFIGURATION" -o "out/plugins/$plugin" -p:ASFVariant=docker -p:ContinuousIntegrationBuild=true -p:UseAppHost=false -r "$asf_variant" --nologo
+    done
+EOF
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0${IMAGESUFFIX} AS runtime
+ENV ASF_PATH=/app
+ENV ASF_UID=1000
+ENV ASPNETCORE_URLS=
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
+ENV DOTNET_NOLOGO=true
+
+LABEL maintainer="guihkx <626206+guihkx@users.noreply.github.com>" \
+    org.opencontainers.image.authors="JustArchi <JustArchi@JustArchi.neti>, guihkx <626206+guihkx@users.noreply.github.com>" \
+    org.opencontainers.image.url="https://github.com/guihkx/ASF-patches" \
+    org.opencontainers.image.source="https://github.com/guihkx/ASF-patches" \
+    org.opencontainers.image.vendor="guihkx" \
+    org.opencontainers.image.licenses="Apache-2.0, MIT" \
+    org.opencontainers.image.title="ArchiSteamFarm" \
+    org.opencontainers.image.description="C# application with primary purpose of idling Steam cards from multiple accounts simultaneously"
+
+EXPOSE 1242
+COPY --from=build-dotnet --link /app/out /asf
+
+RUN <<EOF
+    set -eu
+
+    mkdir -p "$ASF_PATH"
+
+    if ! id -u "$ASF_UID" >/dev/null 2>&1; then
+        groupadd -r -g "$ASF_UID" "asf"
+        useradd -r -d "$ASF_PATH" -g "$ASF_UID" -u "$ASF_UID" "asf"
+    fi
+
+    chown -hR "${ASF_UID}:${ASF_UID}" "$ASF_PATH" /asf
+
+    ln -s /asf/ArchiSteamFarm.sh /usr/bin/ArchiSteamFarm
+EOF
+
+WORKDIR /app
+VOLUME ["/app/config", "/app/logs"]
+HEALTHCHECK CMD ["pidof", "-q", "dotnet"]
+ENTRYPOINT ["ArchiSteamFarm", "--no-restart"]
