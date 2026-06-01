@@ -36,6 +36,9 @@
     <binary>ArchiSteamFarm</binary>
   </provides>
   <releases>
+    <release version="6.3.6.1" date="2026-05-24">
+      <description/>
+    </release>
     <release version="6.3.5.1" date="2026-04-25">
       <description/>
     </release>
