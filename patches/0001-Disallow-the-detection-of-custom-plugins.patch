@@ -21,5 +21,5 @@ index bca005584..12f9b3106 100644
  	[ImportMany]
  	internal static FrozenSet<IPlugin> ActivePlugins { get; private set; } = [];
 -- 
-2.54.0
+2.55.0
 

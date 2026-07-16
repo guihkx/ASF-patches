@@ -45,5 +45,5 @@ index f3d80c78d..86aaa01fa 100644
  
  		await Utilities.InParallel(botNames.OrderBy(static botName => botName, Bot.BotsComparer).Select(Bot.RegisterBot)).ConfigureAwait(false);
 -- 
-2.54.0
+2.55.0
 
