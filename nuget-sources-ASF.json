@@ -722,10 +722,10 @@
     },
     {
         "type": "file",
-        "url": "https://api.nuget.org/v3-flatcontainer/scalar.aspnetcore/2.16.12/scalar.aspnetcore.2.16.12.nupkg",
-        "sha512": "7deec528e3124a6bf6a15a08679909f2adc52c042eda5d3f69742090a7632e58bea43c6caacd78897cd3b0583bb2f783d1b2cfaacf462f175d3cb960d23134be",
+        "url": "https://api.nuget.org/v3-flatcontainer/scalar.aspnetcore/2.16.15/scalar.aspnetcore.2.16.15.nupkg",
+        "sha512": "d3b163a542fab286fc1965ace723f74f9547728c48aabfcc2875d97fed7337e90d3a591b888c62176da43a546f08e17dee3a43f434ccd57d7d3ec433976f8a3b",
         "dest": "nuget-sources",
-        "dest-filename": "scalar.aspnetcore.2.16.12.nupkg"
+        "dest-filename": "scalar.aspnetcore.2.16.15.nupkg"
     },
     {
         "type": "file",
