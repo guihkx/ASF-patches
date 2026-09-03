@@ -8,7 +8,7 @@ Subject: Disallow the detection of custom plugins
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/ArchiSteamFarm/Plugins/PluginsCore.cs b/ArchiSteamFarm/Plugins/PluginsCore.cs
-index bca005584..12f9b3106 100644
+index e5b0bbdef..a08fa2a33 100644
 --- a/ArchiSteamFarm/Plugins/PluginsCore.cs
 +++ b/ArchiSteamFarm/Plugins/PluginsCore.cs
 @@ -54,7 +54,7 @@
