@@ -128,7 +128,7 @@ jobs:
         env:
           MATRIX_TARGET: ${{ matrix.target }}
         run: |
-          for plugin in ${{ env.PLUGINS }}
+          for plugin in $PLUGINS
           do
               out_dir="../builds/$MATRIX_TARGET/plugins/$plugin"
               mkdir -p "$out_dir"
