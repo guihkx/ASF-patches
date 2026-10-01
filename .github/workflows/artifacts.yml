@@ -6,6 +6,8 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions: {}
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -35,6 +37,8 @@ jobs:
     if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
     name: ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
+    permissions:
+      artifact-metadata: write # for uploading build artifacts
 
     strategy:
       fail-fast: false
