@@ -3,3 +3,4 @@ builds/
 builddir/
 repo/
 *.flatpak
+flatpak-dotnet-generator.py
