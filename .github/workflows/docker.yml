@@ -41,12 +41,14 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Prepare environment outputs
+      env:
+        GITHUB_REPOSITORY: ${{ github.repository }}
       shell: sh
       run: |
         set -eu
 
         echo "DATE_ISO8601=$(date --iso-8601=seconds --utc)" >> "$GITHUB_ENV"
-        echo "GHCR_REPOSITORY=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"
+        echo "GHCR_REPOSITORY=$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"
 
     - name: Build and publish Docker image from Dockerfile
       uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
