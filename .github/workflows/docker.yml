@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   docker:
+    name: Docker
     environment: release-docker
     runs-on: ubuntu-latest
     permissions:
