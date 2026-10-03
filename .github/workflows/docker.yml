@@ -8,13 +8,14 @@ env:
   PLATFORMS: linux/amd64,linux/arm,linux/arm64
   TAG: latest
 
-permissions:
-  packages: write
+permissions: {}
 
 jobs:
   docker:
     environment: release-docker
     runs-on: ubuntu-latest
+    permissions:
+      packages: write # for uploading the OCI image to ghcr.io
 
     steps:
     - name: Checkout code
